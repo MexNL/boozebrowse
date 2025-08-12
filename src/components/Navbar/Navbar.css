@@ -1,2 +1,35 @@
+.nav-container {
+    display: flex;
+    flex-direction: row;
+}
 
+.title-container {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid black;
+}
+
+.title-container img {
+    height: 4rem;
+}
+
+hr {
+    width: 80%;
+    margin: 2rem auto;
+    border: none;
+    height: 1px;
+    background: linear-gradient(
+            to right,
+            transparent,
+            rgba(0, 0, 0, 0.7),
+            transparent
+    );
+}
+.pages-container ul{
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    justify-content: flex-end;
+    border: 1px solid black;
+}
 

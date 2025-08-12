@@ -10,8 +10,6 @@ import ProfilePage from './pages/ProfilePage.jsx'
 import ProductPage from './pages/ProductPage.jsx'
 
 function App() {
-
-
   return (
     <>
         <Navbar/>
