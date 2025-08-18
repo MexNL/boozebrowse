@@ -15,13 +15,12 @@ function NavBar() {
 
                 <div className='pages-container'>
                     <ul>
-                        <li><NavLink to="/">Home</NavLink></li>
-                        <li><NavLink to="/searchpage">Search</NavLink></li>
-                        <li><NavLink to="/loginpage">Login</NavLink></li>
-                        <li><NavLink to="/registerpage">Register</NavLink></li>
+                        <li><NavLink to="/"><h3>Home</h3></NavLink></li>
+                        <li><NavLink to="/searchpage"><h3>Search</h3></NavLink></li>
+                        <li><NavLink to="/loginpage"><h3>Login</h3></NavLink></li>
+                        <li><NavLink to="/registerpage"><h3>Register</h3></NavLink></li>
                     </ul>
                 </div>
-
             </div>
             <hr/>
         </nav>
