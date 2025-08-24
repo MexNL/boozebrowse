@@ -11,11 +11,8 @@ function HomePage(){
                 <hr/>
             </section>
 
-            <section>
+            <section className="section-two">
                 <CocktailBlock/>
-                <br/>
-                <CocktailBlock/>
-                <br/>
                 <CocktailBlock/>
             </section>
         </div>
