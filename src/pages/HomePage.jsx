@@ -1,5 +1,5 @@
 import "./HomePage.css"
-
+import CocktailBlock from "../components/CocktailBlock/CocktailBlock.jsx";
 
 function HomePage(){
 
@@ -10,8 +10,10 @@ function HomePage(){
                 <h2>Discover your next favorite cocktail</h2>
                 <hr/>
             </section>
-            <section>
 
+            <section className="section-two">
+                <CocktailBlock/>
+                <CocktailBlock/>
             </section>
         </div>
     )

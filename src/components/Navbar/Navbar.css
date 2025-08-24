@@ -53,6 +53,13 @@ hr {
     color: grey;
 }
 
+.section-two {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin: 3rem;
+}
+
 @media (max-width: 600px){
     .nav-container{
         flex-direction: column;
