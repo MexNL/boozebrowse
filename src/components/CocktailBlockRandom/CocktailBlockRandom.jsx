@@ -1,10 +1,10 @@
 import axios from "axios";
 import {useEffect, useState} from "react";
 import ozToMl from "../../helpers/ozToMl.js";
-import "./CocktailBlock.css"
+import "./CocktailBlockRandom.css"
 
 
-function CocktailBlock() {
+function CocktailBlockRandom() {
 
     const apiKey = import.meta.env.VITE_API_KEY;
     const apiUrl = import.meta.env.VITE_API_URL;
@@ -84,4 +84,4 @@ function CocktailBlock() {
     )
 }
 
-export default CocktailBlock;
+export default CocktailBlockRandom;

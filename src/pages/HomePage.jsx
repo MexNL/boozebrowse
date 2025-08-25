@@ -1,5 +1,5 @@
 import "./HomePage.css"
-import CocktailBlock from "../components/CocktailBlock/CocktailBlock.jsx";
+import CocktailBlockRandom from "../components/CocktailBlockRandom/CocktailBlockRandom.jsx";
 
 function HomePage(){
 
@@ -12,8 +12,8 @@ function HomePage(){
             </section>
 
             <section className="section-two">
-                <CocktailBlock/>
-                <CocktailBlock/>
+                <CocktailBlockRandom/>
+                <CocktailBlockRandom/>
             </section>
         </div>
     )
