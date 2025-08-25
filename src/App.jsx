@@ -2,12 +2,12 @@
 import './App.css'
 import Navbar from "./components/Navbar/Navbar.jsx";
 import {Route, Routes} from "react-router-dom";
-import HomePage from './pages/HomePage.jsx'
-import SearchPage from './pages/SearchPage.jsx'
-import LoginPage from './pages/LoginPage.jsx'
-import RegisterPage from './pages/RegisterPage.jsx'
-import ProfilePage from './pages/ProfilePage.jsx'
-import ProductPage from './pages/ProductPage.jsx'
+import HomePage from './pages/HomePage/HomePage.jsx'
+import SearchPage from './pages/SearchPage/SearchPage.jsx'
+import LoginPage from './pages/LoginPage/LoginPage.jsx'
+import RegisterPage from './pages/RegisterPage/RegisterPage.jsx'
+import ProfilePage from './pages/ProfilePage/ProfilePage.jsx'
+import ProductPage from './pages/ProductPage/ProductPage.jsx'
 
 function App() {
   return (
