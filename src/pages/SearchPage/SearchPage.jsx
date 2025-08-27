@@ -2,6 +2,7 @@ import "./SearchPage.css"
 import { useState } from "react";
 import CocktailBlockName from "../../components/CocktailBlockName/CocktailBlockName.jsx";
 import CocktailBlockRandom from "../../components/CocktailBlockRandom/CocktailBlockRandom.jsx";
+import CocktailBlockIngredient from "../../components/CocktailBlockIngredient/CocktailBlockIngredient.jsx";
 
 function SearchPage() {
 

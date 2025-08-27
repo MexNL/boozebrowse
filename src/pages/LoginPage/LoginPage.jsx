@@ -1,3 +1,4 @@
+import CocktailBlockIngredient from "../../components/CocktailBlockIngredient/CocktailBlockIngredient.jsx";
 
 function LoginPage() {
     return(

@@ -15,10 +15,29 @@ function CocktailBlockIngredient({search, input}) {
     const [cocktailCategory, setCocktailCategory] = useState("")
     const [cocktailAlcohol, setCocktailAlcohol] = useState("")
     const [cocktailIngredients, setCocktailIngredients] = useState([]);
+    const [cocktailId, setCocktailId] = useState(0);
+    const [responseIdMap, setResponseIdMap] = useState([]);
+
+    // async function searchCocktailId() {
+    //     try{
+    //
+    //         console.log(responseIdMap);
+    //     } catch (e) {
+    //         console.error("Error retrieving cocktail", e)
+    //     }
+    // }
+
+
 
     async function searchApiCall() {
         try {
-            const response = await axios.get(`${apiUrl}${apiKey}/search.php?${search}=${input}`)
+
+            // ophalen van de ID's van de cocktails van het ingredient (array)
+            const idResponse = await axios.get(`${apiUrl}${apiKey}/filter.php?${search}=${cocktailId}`)
+            const responseIdArray = idResponse.map(idResponse => idResponse.idDrink);
+            setResponseIdMap(responseIdArray)
+            console.log(responseIdMap);
+            const response = await axios.get(`${apiUrl}${apiKey}/lookup.php?${search}=${input}`)
             const name = response.data.drinks[0].strDrink;
             const photo = response.data.drinks[0].strDrinkThumb;
             const instruction = response.data.drinks[0].strInstructions;
@@ -50,6 +69,7 @@ function CocktailBlockIngredient({search, input}) {
             console.error("Error retrieving cocktail", e)
         }
     }
+
 
     useEffect(() => {
         searchApiCall();
