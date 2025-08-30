@@ -45,7 +45,7 @@ function SearchPage() {
             <section className="search-container-output">
                 {showResults && <CocktailBlockName search={type} input={searchType} />}
 
-
+                <CocktailBlockIngredient/>
                 <p>Voor debuggen</p>
                 <p>{type}</p>
                 <p>{searchType}</p>

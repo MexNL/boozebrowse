@@ -4,7 +4,7 @@ import ozToMl from "../../helpers/ozToMl.js";
 import "./CocktailBlockIngredient.css"
 
 
-function CocktailBlockIngredient({search, input}) {
+function CocktailBlockIngredient() {
 
     const apiKey = import.meta.env.VITE_API_KEY;
     const apiUrl = import.meta.env.VITE_API_URL;
@@ -15,34 +15,32 @@ function CocktailBlockIngredient({search, input}) {
     const [cocktailCategory, setCocktailCategory] = useState("")
     const [cocktailAlcohol, setCocktailAlcohol] = useState("")
     const [cocktailIngredients, setCocktailIngredients] = useState([]);
-    const [cocktailId, setCocktailId] = useState(0);
-    const [responseIdMap, setResponseIdMap] = useState([]);
-
-    // async function searchCocktailId() {
-    //     try{
-    //
-    //         console.log(responseIdMap);
-    //     } catch (e) {
-    //         console.error("Error retrieving cocktail", e)
-    //     }
-    // }
-
 
 
     async function searchApiCall() {
         try {
 
-            // ophalen van de ID's van de cocktails van het ingredient (array)
-            const idResponse = await axios.get(`${apiUrl}${apiKey}/filter.php?${search}=${cocktailId}`)
-            const responseIdArray = idResponse.map(idResponse => idResponse.idDrink);
-            setResponseIdMap(responseIdArray)
-            console.log(responseIdMap);
-            const response = await axios.get(`${apiUrl}${apiKey}/lookup.php?${search}=${input}`)
-            const name = response.data.drinks[0].strDrink;
-            const photo = response.data.drinks[0].strDrinkThumb;
-            const instruction = response.data.drinks[0].strInstructions;
-            const category = response.data.drinks[0].strCategory;
-            const alcoholic = response.data.drinks[0].strAlcoholic;
+            /**
+             *
+             * @todo Zorg ervoor dat na het maken van dit stuk code de .get nog wel dynamisch is
+             * @todo maak batches aan want van de api mag je maar 60 req doen per 10 seconden #kutzooi
+             *
+             */
+
+                // ophalen van de ID's van de cocktails van het ingredient (array)
+                // const idResponse = await axios.get(`${apiUrl}${apiKey}/filter.php?${search}=${input}`)
+            const idResponse = await axios.get(`${apiUrl}${apiKey}/filter.php?i=Gin`)
+            const responseIdArray = idResponse.data.drinks.map(item => item.idDrink);
+
+            //Vervanger voor de for loop
+            const cocktailPromise = responseIdArray.map(id => axios.get(`${apiUrl}${apiKey}/lookup.php?i=${id}`))
+            const cocktailRespons = await Promise.all(cocktailPromise);
+
+            const name = cocktailRespons.data.drinks[0].strDrink;
+            const photo = cocktailRespons.data.drinks[0].strDrinkThumb;
+            const instruction = cocktailRespons.data.drinks[0].strInstructions;
+            const category = cocktailRespons.data.drinks[0].strCategory;
+            const alcoholic = cocktailRespons.data.drinks[0].strAlcoholic;
             setCocktailName(name);
             setCocktailInstruction(instruction);
             setCocktailPhoto(photo);
@@ -52,8 +50,8 @@ function CocktailBlockIngredient({search, input}) {
             const ingredientList = [];
 
             for (let i = 1; i <= 15; i++) {
-                const ingredient = response.data.drinks[0][`strIngredient${i}`];
-                const measurement = response.data.drinks[0][`strMeasure${i}`];
+                const ingredient = cocktailRespons.data.drinks[0][`strIngredient${i}`];
+                const measurement = cocktailRespons.data.drinks[0][`strMeasure${i}`];
                 if (ingredient) {
                     const amount = measurement ? parseFloat(measurement) : 0;
                     ingredientList.push({
@@ -73,7 +71,7 @@ function CocktailBlockIngredient({search, input}) {
 
     useEffect(() => {
         searchApiCall();
-    }, [search, input]);
+    }, []);
 
     return (
         <div className="cocktail-container">
@@ -83,7 +81,7 @@ function CocktailBlockIngredient({search, input}) {
             </header>
             <div className="cocktail-container-body">
                 <section className="cocktail-section-one">
-                    <img src={cocktailPhoto} alt={name}/>
+                    <img src={cocktailPhoto} alt={cocktailName}/>
                     <h4>Ingredients</h4>
                     <ul className="cocktail-section-one-ul">
                         {cocktailIngredients.map((item, index) => (
