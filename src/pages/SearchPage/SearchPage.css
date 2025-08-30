@@ -1,4 +1,7 @@
-.search-container-input-form{
+.search-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    /*background-color: cornflowerblue;*/
+    align-items: center;
+    margin: 5rem 0;
 }

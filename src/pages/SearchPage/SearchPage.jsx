@@ -8,7 +8,7 @@ function SearchPage() {
 
     const [type, setType] = useState("");
     const [searchType, setSearchType] = useState("");
-    const [showResults, setShowResults] = useState(false); // state om child te tonen
+    const [showResults, setShowResults] = useState(false);
 
     const choice = (e) => {
         setType(e.target.value);
@@ -44,12 +44,8 @@ function SearchPage() {
 
             <section className="search-container-output">
                 {showResults && <CocktailBlockName search={type} input={searchType} />}
-
                 <CocktailBlockIngredient/>
-                <p>Voor debuggen</p>
-                <p>{type}</p>
-                <p>{searchType}</p>
-                <p>{showResults}</p>
+
             </section>
         </div>
     );
