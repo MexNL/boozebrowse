@@ -1,6 +1,8 @@
 import React, {createContext, useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
+
+// eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext({});
 
 function AuthContextProvider({children}) {
@@ -25,7 +27,7 @@ function AuthContextProvider({children}) {
                 status: "done",
             },
         );
-        navigate('/profile');
+        navigate('/ProfilePage');
 
     }
 
@@ -43,7 +45,8 @@ function AuthContextProvider({children}) {
 
     return (
         <AuthContext.Provider value={contextData}>
-            {auth.status === 'done' ? children : <p>Loading...</p>}
+            {/*{auth.status === 'done' ? children : <p>Loading...</p>}*/}
+            {children}
         </AuthContext.Provider>
     );
 }
