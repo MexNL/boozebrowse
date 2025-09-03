@@ -1,11 +1,14 @@
 import axios from "axios";
 import '../LoginPage/LoginPage.css'
 import {Link} from "react-router-dom";
-import {useContext} from "react";
+import {useContext, useState} from "react";
 import {AuthContext} from "../../context/AuthContext.jsx";
 
 
 function LoginPage() {
+
+    const [mail, setMail] = useState('')
+    const [password, setPassword] = useState('')
 
     const baseNoviUrl = import.meta.env.VITE_API_NOVI_URL;
     const projectId = import.meta.env.VITE_API_PROJECT_KEY;
@@ -17,10 +20,10 @@ function LoginPage() {
        try {
            const response = await axios.post(`${baseNoviUrl}api/login`,
                {
-                   email: 'regular.user@example.com',
-                   password: 'regular123'
+                   email: mail,
+                   password: password,
                }, {
-               header: {
+               headers: {
                    'novi-education-project-id': `${projectId}`
                }
                })
@@ -41,13 +44,15 @@ function LoginPage() {
 
                 <article className="login-container-body">
                     <form>
-                        <label htmlFor="username">Username</label>
+                        <label htmlFor="mail">Username</label>
                         <input
                             type="text"
-                            id="username"
-                            name="username"
-                            placeholder="Gebruikersnaam"
+                            id="mail"
+                            name="mail"
+                            placeholder="Mail address"
                             className="login-input"
+                            value={mail}
+                            onChange={(e) => setMail(e.target.value)}
                             required
                         />
 
@@ -58,6 +63,8 @@ function LoginPage() {
                             name="password"
                             placeholder="Wachtwoord"
                             className="login-input"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                             required
                         />
 
