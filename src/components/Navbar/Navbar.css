@@ -60,6 +60,16 @@ hr {
     margin: 3rem;
 }
 
+.logoutButton{
+    all: unset;
+    cursor: pointer;
+}
+
+.logoutButton:hover{
+    color: grey;
+
+}
+
 @media (max-width: 600px){
     .nav-container{
         flex-direction: column;

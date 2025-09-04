@@ -50,6 +50,7 @@ function AuthContextProvider({children}) {
                     status: "done",
                 },
             );
+
             navigate('/ProfilePage');
 
         }
@@ -70,6 +71,7 @@ function AuthContextProvider({children}) {
             isAuth: auth.isAuth,
             login: login,
             logout: logout,
+            ...auth,
         }
 
         return (
