@@ -12,7 +12,6 @@ import { AuthContext } from './context/AuthContext';
 import {useContext} from "react";
 
 function App() {
-    const { isAuth } = useContext(AuthContext);
   return (
     <>
         <Navbar/>
@@ -21,7 +20,7 @@ function App() {
             <Route path='/searchpage' element={<SearchPage/>}/>
             <Route path='/loginpage' element={<LoginPage/>}/>
             <Route path='/registerpage' element={<RegisterPage/>}/>
-            <Route path='/profilepage' element={isAuth ? <ProfilePage/> : <Navigate to="/" />} />
+            <Route path='/profile' element={<ProfilePage/>}/>
             <Route path='/product' element={<ProductPage/>}/>
         </Routes>
     </>
