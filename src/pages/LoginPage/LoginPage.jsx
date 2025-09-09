@@ -3,6 +3,7 @@ import '../LoginPage/LoginPage.css'
 import {Link} from "react-router-dom";
 import {useContext, useState} from "react";
 import {AuthContext} from "../../context/AuthContext.jsx";
+import {jwtDecode} from "jwt-decode";
 
 
 function LoginPage() {
@@ -23,12 +24,32 @@ function LoginPage() {
                    email: mail,
                    password: password,
                }, {
-               headers: {
-                   'novi-education-project-id': `${projectId}`
-               }
+                   headers: {
+                       'novi-education-project-id': `${projectId}`
+                   }
                })
+           const decodedUserId = jwtDecode(response.data.token);
+
+           //HIER GEBLEVEN
+           console.log(decodedUserId);
+           const userIdTest = decodedUserId.userId;
+           console.log(userIdTest);
+           const profileResponse = await axios.get(`${baseNoviUrl}api/user_profiles/${userIdTest}`, {
+               headers: {
+                   'novi-education-project-id': `${projectId}`,
+                   'Authorization': `Bearer ${response.data.token}`
+               }
+           })
+
+           const dataWithCocktailIds = {
+               ...response.data,
+               user: {
+                   ...response.data.user,
+                   cocktail_ids: profileResponse.data.cocktail_ids || []
+               }
+           };
            console.log(response);
-           login(response.data);
+           login(dataWithCocktailIds);
        }
        catch (e) {
            console.error(e);

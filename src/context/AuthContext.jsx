@@ -9,6 +9,7 @@ export const AuthContext = createContext({});
 function AuthContextProvider({children}) {
     const [auth, setAuth] = useState({
         isAuth: false,
+        id: null,
         user: null,
         email: null,
         cocktail_ids: [],
@@ -31,9 +32,10 @@ function AuthContextProvider({children}) {
             if (isTokenValid(token)) {
                 setAuth({
                     isAuth: true,
+                    id: decodedToken.id,
                     user: decodedToken.name,
                     email: decodedToken.email,
-                    cocktail_ids: decodedToken.cocktail_ids || [],
+                    cocktail_ids: decodedToken.data.user_profiles.cocktail_ids || [],
                     status: "done",
                 });
             } else {
@@ -47,6 +49,7 @@ function AuthContextProvider({children}) {
     function login(userDetails) {
         const authData = {
             isAuth: true,
+            id: userDetails.user.id,
             user: userDetails.user.name,
             email: userDetails.user.email,
             cocktail_ids: userDetails.user.cocktail_ids || [],
@@ -67,6 +70,7 @@ function AuthContextProvider({children}) {
         localStorage.removeItem('token')
         setAuth({
             isAuth: false,
+            id: null,
             user: null,
             email: null,
             cocktail_ids: [],
