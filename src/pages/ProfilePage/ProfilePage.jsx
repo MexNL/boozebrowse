@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext.jsx";
 
 function ProfilePage() {
-    const {  isAuth ,name ,status, email } = useContext(AuthContext);
+    const {  isAuth ,name ,status, email, cocktail_ids } = useContext(AuthContext);
 
     return (
         <div>
@@ -11,6 +11,7 @@ function ProfilePage() {
                     <p>Email: {email}</p>
                     <p>{status}</p>
                     <p>{name}</p>
+                    <p>{cocktail_ids}</p>
                 </main>
 
             ): (

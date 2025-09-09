@@ -58,7 +58,7 @@ function AuthContextProvider({children}) {
 
         setAuth(authData);
 
-        navigate('/ProfilePage');
+        navigate('/profile');
     }
 
     function logout() {
