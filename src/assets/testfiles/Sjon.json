@@ -1,21 +1,21 @@
 {
   "collections": [
     {
-      "name": "secrets",
+      "name": "users",
       "fields": [
         {
-          "name": "id",
-          "type": "number",
-          "required": true
-        },
-        {
-          "name": "title",
+          "name": "email",
           "type": "string",
           "required": true
         },
         {
-          "name": "content",
+          "name": "password",
           "type": "string",
+          "required": true
+        },
+        {
+          "name": "cocktail_ids",
+          "type": "array<number>",
           "required": true
         }
       ],
@@ -37,30 +37,27 @@
   ],
   "users": [
     {
-      "id": 1,
       "email": "regular.user@example.com",
       "password": "regular123",
-      "roles": [
-        "anonymous",
-        "user"
-      ]
+      "cocktail_ids": [11007]
     },
     {
-      "id": 2,
       "email": "another.user@example.com",
       "password": "another123",
-      "roles": [
-        "anonymous",
-        "user"
-      ]
+      "cocktail_ids": [11007]
     }
   ],
   "data": {
-    "secrets": [
+    "users": [
       {
-        "id": 1,
-        "title": "Het geheim achter een goed cijfer",
-        "content": "Hoge cijfers halen doe je niet door goed je best te doen of hard te studeren. Een hoog cijfer haal je natuurlijk alleen door erachter te komen wie jouw eindopdracht nakijkt, en diegene erg veel chocolaatjes en bloemen te sturen."
+        "email": "regular.user@example.com",
+        "password": "regular123",
+        "cocktail_ids": [101, 202, 303]
+      },
+      {
+        "email": "another.user@example.com",
+        "password": "another123",
+        "cocktail_ids": [404, 505]
       }
     ]
   }

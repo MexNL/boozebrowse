@@ -1,16 +1,17 @@
-import React, { createContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { jwtDecode } from "jwt-decode";
+import React, {createContext, useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {jwtDecode} from "jwt-decode";
 import isTokenValid from "../helpers/isTokenValid.js";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext({});
 
-function AuthContextProvider({ children }) {
+function AuthContextProvider({children}) {
     const [auth, setAuth] = useState({
         isAuth: false,
         user: null,
         email: null,
+        cocktail_ids: [],
         status: "pending",
     });
 
@@ -32,6 +33,7 @@ function AuthContextProvider({ children }) {
                     isAuth: true,
                     user: decodedToken.name,
                     email: decodedToken.email,
+                    cocktail_ids: decodedToken.cocktail_ids || [],
                     status: "done",
                 });
             } else {
@@ -47,6 +49,7 @@ function AuthContextProvider({ children }) {
             isAuth: true,
             user: userDetails.user.name,
             email: userDetails.user.email,
+            cocktail_ids: userDetails.user.cocktail_ids || [],
             status: "done",
             token: userDetails.token
         };
@@ -66,6 +69,7 @@ function AuthContextProvider({ children }) {
             isAuth: false,
             user: null,
             email: null,
+            cocktail_ids: [],
             status: "done",
         });
         navigate('/');
