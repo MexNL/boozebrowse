@@ -20,7 +20,7 @@ function RegisterPage() {
         }
 
         try {
-            await axios.post(`${baseNoviUrl}api/users`,
+            const responso = await axios.post(`${baseNoviUrl}api/users`,
                 {
                     email: email,
                     password: password,
@@ -30,6 +30,21 @@ function RegisterPage() {
                         'novi-education-project-id': `${projectId}`
                     }
                 });
+            console.log(responso);
+            const newUser = responso.data.id;
+            await axios.post(
+                `${baseNoviUrl}api/user_profiles`,
+                {
+                    user_id: newUser,
+                    cocktail_ids: [],
+                }
+                , {
+                    headers: {
+                        'novi-education-project-id': `${projectId}`
+                    }
+                }
+            )
+            console.log(responso.data.id);
             console.log("Account aangemaakt heur")
             setMessage("Account succesfully created")
         }
