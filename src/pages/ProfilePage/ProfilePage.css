@@ -1,0 +1,37 @@
+.profile-page {
+    padding: 2rem;
+}
+
+.profile-layout {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 2rem;
+}
+
+/* Profiel */
+.profile-image {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.profile-image img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    object-fit: cover;
+}
+
+/* Cocktails rechts */
+.saved-cocktails {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.saved-cocktails h2 {
+    margin-bottom: 0.5rem;
+}
