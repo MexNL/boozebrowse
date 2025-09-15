@@ -1,0 +1,79 @@
+
+
+
+.profile-page {
+    padding: 2rem;
+}
+
+.profile-layout {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 2rem;
+}
+
+.login-container {
+    background: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 1.5rem;
+    width: 280px;
+}
+.login-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 0.5rem;
+}
+
+.login-container-body p {
+    margin: 0.5rem 0;
+    font-size: 0.95rem;
+}
+
+.profile-image {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.profile-image img {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    object-fit: cover;
+}
+
+.saved-cocktails {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+.saved-cocktails h2 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.25rem;
+}
+.saved-cocktails article {
+    font-size: 1rem;
+    line-height: 1.6;
+    background: #fdfdfd;
+    padding: 1rem;
+    border: 1px solid #eee;
+    border-radius: 8px;
+}
+
+.saved-cocktails ul {
+    list-style: disc;
+    margin-left: 1.5rem;
+    padding-left: 0.5rem;
+}
+
+.saved-cocktails li {
+    margin-bottom: 0.25rem;
+    font-size: 0.95rem;
+}

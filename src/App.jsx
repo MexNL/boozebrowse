@@ -8,8 +8,7 @@ import LoginPage from './pages/LoginPage/LoginPage.jsx'
 import RegisterPage from './pages/RegisterPage/RegisterPage.jsx'
 import ProfilePage from './pages/ProfilePage/ProfilePage.jsx'
 import ProductPage from './pages/ProductPage/ProductPage.jsx'
-import { AuthContext } from './context/AuthContext';
-import {useContext} from "react";
+
 
 function App() {
   return (
@@ -21,7 +20,7 @@ function App() {
             <Route path='/loginpage' element={<LoginPage/>}/>
             <Route path='/registerpage' element={<RegisterPage/>}/>
             <Route path='/profile' element={<ProfilePage/>}/>
-            <Route path='/product' element={<ProductPage/>}/>
+            <Route path='/product/:id' element={<ProductPage/>}/>
         </Routes>
     </>
   )

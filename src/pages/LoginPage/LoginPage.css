@@ -1,11 +1,11 @@
 .login-container {
     width: 35%;
-    height: 25rem; /* Zelfde hoogte als cocktail-container */
+    height: 25rem;
     background-color: #f9f9f9;
     border: 2px solid #ddd;
     border-radius: 10px;
     color: #111;
-    overflow: auto; /* Voor scrollen indien nodig */
+    overflow: auto;
     display: flex;
     flex-direction: column;
 }
@@ -26,7 +26,7 @@
     flex-direction: column;
     padding: 1.5rem;
     gap: 1rem;
-    flex: 1; /* Neemt beschikbare ruimte in */
+    flex: 1;
     background: #fff;
     border-radius: 6px;
     margin: 1rem;

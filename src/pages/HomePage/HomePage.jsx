@@ -1,9 +1,13 @@
 import "./HomePage.css"
 import CocktailBlockRandom from "../../components/CocktailBlockRandom/CocktailBlockRandom.jsx";
+import {Link} from "react-router-dom";
 
-function HomePage(){
+function HomePage() {
+//Test dingetje
+    const cocktailId = 11007; // test-id's
 
-    return(
+
+    return (
         <div>
             <section className="section-one">
                 <img src="src/assets/bottles.png" alt="Bar with bottles"/>
@@ -15,6 +19,13 @@ function HomePage(){
                 <CocktailBlockRandom/>
                 <CocktailBlockRandom/>
             </section>
+            <div style={{padding: "1rem", border: "1px solid #ccc"}}>
+                <h3>Test Link naar ProductPage</h3>
+                <p>
+                    <Link to={`/product/${cocktailId}`}>Bekijk cocktail {cocktailId}</Link>
+                </p>
+            </div>
+
         </div>
     )
 }
