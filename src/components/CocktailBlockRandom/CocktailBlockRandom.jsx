@@ -2,6 +2,7 @@ import axios from "axios";
 import {useEffect, useState} from "react";
 import ozToMl from "../../helpers/ozToMl.js";
 import "./CocktailBlockRandom.css"
+import {Link} from "react-router-dom";
 
 
 function CocktailBlockRandom() {
@@ -15,6 +16,7 @@ function CocktailBlockRandom() {
     const [cocktailCategory, setCocktailCategory] = useState("")
     const [cocktailAlcohol, setCocktailAlcohol] = useState("")
     const [cocktailIngredients, setCocktailIngredients] = useState([]);
+    const [id, setId] = useState(0);
 
     async function randomApiCall() {
         try {
@@ -24,11 +26,13 @@ function CocktailBlockRandom() {
             const instruction = response.data.drinks[0].strInstructions;
             const category = response.data.drinks[0].strCategory;
             const alcoholic = response.data.drinks[0].strAlcoholic;
+            const id = response.data.drinks[0].idDrink;
             setCocktailName(name);
             setCocktailInstruction(instruction);
             setCocktailPhoto(photo);
             setCocktailCategory(category);
             setCocktailAlcohol(alcoholic);
+            setId(id);
 
             const ingredientList = [];
 
@@ -58,7 +62,10 @@ function CocktailBlockRandom() {
     return (
         <div className="cocktail-container">
             <header className="cocktail-header">
-                <h3>{cocktailName}</h3>
+                <Link to={`/product/${id}`}>
+                    <h3>{cocktailName}</h3>
+                </Link>
+                {/*<h3>{cocktailName}</h3>*/}
                 <h3>{cocktailAlcohol}</h3>
             </header>
             <div className="cocktail-container-body">
@@ -81,7 +88,7 @@ function CocktailBlockRandom() {
             </div>
 
         </div>
-    )
+)
 }
 
 export default CocktailBlockRandom;

@@ -54,3 +54,22 @@
     margin-bottom: 0.75rem;
     overflow: auto;
 }
+
+/*h1,*/
+/*h1:visited,*/
+/*h1:focus{*/
+/*    color: black;*/
+/*}*/
+
+/*.h1 h1:active,h1:hover{*/
+/*    color: grey;*/
+/*}*/
+
+h3{
+    color: black;
+}
+
+Link:active,
+Link:hover {
+    color: grey;
+}

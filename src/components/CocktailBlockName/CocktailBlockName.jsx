@@ -2,6 +2,7 @@ import axios from "axios";
 import {useEffect, useState} from "react";
 import ozToMl from "../../helpers/ozToMl.js";
 import "./CocktailBlockName.css"
+import {Link} from "react-router-dom";
 
 
 function CocktailBlockName({search, input}) {
@@ -15,6 +16,7 @@ function CocktailBlockName({search, input}) {
     const [cocktailCategory, setCocktailCategory] = useState("")
     const [cocktailAlcohol, setCocktailAlcohol] = useState("")
     const [cocktailIngredients, setCocktailIngredients] = useState([]);
+    const [id, setId] = useState(0);
 
     async function searchApiCall() {
         try {
@@ -24,6 +26,8 @@ function CocktailBlockName({search, input}) {
             const instruction = response.data.drinks[0].strInstructions;
             const category = response.data.drinks[0].strCategory;
             const alcoholic = response.data.drinks[0].strAlcoholic;
+            const id = response.data.drinks[0].idDrink;
+            setId(id);
             setCocktailName(name);
             setCocktailInstruction(instruction);
             setCocktailPhoto(photo);
@@ -58,7 +62,9 @@ function CocktailBlockName({search, input}) {
     return (
         <div className="cocktail-container">
             <header className="cocktail-header">
-                <h3>{cocktailName}</h3>
+                <Link to={`/product/${id}`}>
+                    <h3>{cocktailName}</h3>
+                </Link>
                 <h3>{cocktailAlcohol}</h3>
             </header>
             <div className="cocktail-container-body">

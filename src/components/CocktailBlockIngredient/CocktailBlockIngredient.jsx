@@ -2,6 +2,7 @@ import axios from "axios";
 import {useEffect, useState} from "react";
 import ozToMl from "../../helpers/ozToMl.js";
 import "./CocktailBlockIngredient.css";
+import {Link} from "react-router-dom";
 
 function CocktailBlockIngredient() {
     const apiKey = import.meta.env.VITE_API_KEY;
@@ -11,6 +12,7 @@ function CocktailBlockIngredient() {
     const [cocktails, setCocktails] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const batchSize = 20;
+
 
     async function fetchBatch(ids, index) {
         const batchIds = ids.slice(index, index + batchSize);
@@ -61,7 +63,7 @@ function CocktailBlockIngredient() {
                 {cocktails.map((cocktail, idx) => (
                     <div key={idx} className="cocktail-container">
                         <header className="cocktail-header">
-                            <h3>{cocktail.strDrink}</h3>
+                            <Link to={`/product/${cocktail.idDrink}`}><h3>{cocktail.strDrink}</h3></Link>
                             <h3>{cocktail.strAlcoholic}</h3>
                         </header>
                         <div className="cocktail-container-body">
