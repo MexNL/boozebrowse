@@ -4,7 +4,7 @@ import ozToMl from "../../helpers/ozToMl.js";
 import "./CocktailBlockIngredient.css";
 import {Link} from "react-router-dom";
 
-function CocktailBlockIngredient() {
+function CocktailBlockIngredient({ingredient, start=0}) {
     const apiKey = import.meta.env.VITE_API_KEY;
     const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -45,7 +45,7 @@ function CocktailBlockIngredient() {
     }
 
     async function initFetch() {
-        const idResponse = await axios.get(`${apiUrl}${apiKey}/filter.php?i=Gin`);
+        const idResponse = await axios.get(`${apiUrl}${apiKey}/filter.php?i=${ingredient}`);
         const responseIdArray = idResponse.data.drinks.map((item) => item.idDrink);
         setAllIds(responseIdArray);
         setCocktails([]);
@@ -54,8 +54,10 @@ function CocktailBlockIngredient() {
     }
 
     useEffect(() => {
-        initFetch();
-    }, []);
+        if(start) {
+            initFetch()
+        }
+    }, [start]);
 
     return (
         <div className="main-component-container">

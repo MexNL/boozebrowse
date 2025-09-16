@@ -8,7 +8,7 @@ function SearchPage() {
 
     const [type, setType] = useState("");
     const [searchType, setSearchType] = useState("");
-    const [showResults, setShowResults] = useState(false);
+    const [searchReset, setSearchReset] = useState(0);
 
     const choice = (e) => {
         setType(e.target.value);
@@ -19,7 +19,7 @@ function SearchPage() {
     }
 
     const handleSearchClick = () => {
-        setShowResults(true);
+        setSearchReset(prev => prev + 1);
     }
 
     return(
@@ -43,9 +43,8 @@ function SearchPage() {
             </section>
 
             <section className="search-container-output">
-                {showResults && <CocktailBlockName search={type} input={searchType} />}
-                <CocktailBlockIngredient/>
-
+                {searchReset && <CocktailBlockName search={type} input={searchType} />}
+                <CocktailBlockIngredient ingredient={searchType} start={searchReset}/>
             </section>
         </div>
     );
