@@ -29,27 +29,27 @@ function LoginPage() {
                    }
                })
            const decodedUserId = jwtDecode(response.data.token);
-            //DIT MOET UITGECOMMENT WORDEN TOT DE API IS GEFIXT
-           //HIER GEBLEVEN
-           // console.log(decodedUserId);
-           // const userIdTest = decodedUserId.userId;
-           // console.log(userIdTest);
-           // const profileResponse = await axios.get(`${baseNoviUrl}api/user_profiles/${userIdTest}`, {
-           //     headers: {
-           //         'novi-education-project-id': `${projectId}`,
-           //         'Authorization': `Bearer ${response.data.token}`
-           //     }
-           // })
+
+           const userIdTest = decodedUserId.userId;
+           const profileResponse = await axios.get(`${baseNoviUrl}api/user_profiles/${userIdTest}`, {
+               headers: {
+                   'novi-education-project-id': `${projectId}`,
+               }
+           })
 
            const dataWithCocktailIds = {
                ...response.data,
                user: {
                    ...response.data.user,
 
-                   // cocktail_ids: profileResponse.data.cocktail_ids || []
+                   cocktail_ids: Array.isArray(profileResponse.data.cocktail_ids)
+                       ? profileResponse.data.cocktail_ids
+                       : profileResponse.data.cocktail_ids
+                           ? profileResponse.data.cocktail_ids.split(',')
+                           : []
                }
            };
-           console.log(response);
+           console.log(dataWithCocktailIds);
            login(dataWithCocktailIds);
        }
        catch (e) {

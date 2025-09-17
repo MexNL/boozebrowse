@@ -15,24 +15,16 @@
         },
         {
           "name": "cocktail_ids",
-          "type": "array",
-          "items": "number",
-          "required": true
+          "type": "string",
+          "required": true,
+          "default": ""
         }
       ],
       "permissions": {
-        "GET": [
-          "user"
-        ],
-        "POST": [
-          "user"
-        ],
-        "PUT": [
-          "user"
-        ],
-        "DELETE": [
-          "user"
-        ]
+        "GET": ["user", "anonymous"],
+        "POST": ["user", "anonymous"],
+        "PUT": ["user", "anonymous"],
+        "DELETE": ["user", "anonymous"]
       }
     }
   ],
@@ -41,25 +33,19 @@
       "id": 1,
       "email": "regular.user@example.com",
       "password": "regular123",
-      "roles": [
-        "user"
-      ]
+      "roles": ["anonymous", "user"]
     },
     {
       "id": 2,
       "email": "another.user@example.com",
       "password": "another123",
-      "roles": [
-        "user"
-      ]
+      "roles": ["anonymous", "user"]
     },
     {
       "id": 3,
       "email": "noob@example.com",
       "password": "noob123",
-      "roles": [
-        "user"
-      ]
+      "roles": ["anonymous", "user"]
     }
   ],
   "data": {
@@ -67,29 +53,17 @@
       {
         "id": 1,
         "user_id": 1,
-        "cocktail_ids": [
-          101,
-          202,
-          303
-        ]
+        "cocktail_ids": "101, 100234, 3249867, 198273"
       },
       {
         "id": 2,
         "user_id": 2,
-        "cocktail_ids": [
-          404,
-          505
-        ]
+        "cocktail_ids": "404"
       },
       {
         "id": 3,
         "user_id": 3,
-        "cocktail_ids": [
-          1,
-          2,
-          3,
-          5
-        ]
+        "cocktail_ids": "1"
       }
     ]
   }

@@ -26,6 +26,12 @@ function ProfilePage() {
                             </div>
                             <p><strong>Name:</strong> {name}</p>
                             <p><strong>Email:</strong> {email}</p>
+                            <p><strong>Cocktail ID's:</strong></p>
+                            <ul>
+                                {cocktail_ids.map((id, index) => (
+                                    <li key={index}>{id}</li>
+                                ))}
+                            </ul>
                         </section>
 
                     </aside>
