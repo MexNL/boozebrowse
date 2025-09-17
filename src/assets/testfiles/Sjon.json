@@ -6,7 +6,7 @@
         {
           "name": "id",
           "type": "number",
-          "required": true
+          "required": false
         },
         {
           "name": "user_id",
@@ -53,7 +53,7 @@
       {
         "id": 1,
         "user_id": 1,
-        "cocktail_ids": "101, 100234, 3249867, 198273"
+        "cocktail_ids": "11007, 11007, 11007, 11006"
       },
       {
         "id": 2,

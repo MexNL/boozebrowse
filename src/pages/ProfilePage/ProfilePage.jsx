@@ -24,6 +24,21 @@ function ProfilePage() {
                                     alt="Profile"
                                 />
                             </div>
+
+
+
+
+
+
+                            {/*TEST BEGIN*/}
+
+
+
+
+
+
+
+
                             <p><strong>Name:</strong> {name}</p>
                             <p><strong>Email:</strong> {email}</p>
                             <p><strong>Cocktail ID's:</strong></p>
@@ -32,6 +47,28 @@ function ProfilePage() {
                                     <li key={index}>{id}</li>
                                 ))}
                             </ul>
+
+
+
+
+
+
+
+
+
+                            {/*TEST EINDE*/}
+
+
+
+
+
+
+
+
+
+
+
+
                         </section>
 
                     </aside>
@@ -40,7 +77,7 @@ function ProfilePage() {
                             <h2>Saved Cocktails</h2>
                         </header>
                         <article>
-                            <CocktailBlockIds ids={testArray}/>
+                            <CocktailBlockIds ids={cocktail_ids}/>
                         </article>
                     </section>
                 </main>
