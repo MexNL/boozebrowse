@@ -43,8 +43,11 @@ function SearchPage() {
             </section>
 
             <section className="search-container-output">
-                {searchReset && <CocktailBlockName search={type} input={searchType} />}
-                <CocktailBlockIngredient ingredient={searchType} start={searchReset}/>
+                {searchReset ? (
+                    <CocktailBlockName search={type} input={searchType} />
+                ) : null}
+                <CocktailBlockIngredient ingredient={searchType} start={searchReset} />
+
             </section>
         </div>
     );
