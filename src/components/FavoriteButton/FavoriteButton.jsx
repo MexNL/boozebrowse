@@ -1,23 +1,26 @@
 import {useState} from "react";
 import axios from "axios";
 
-function FavoriteButton ({cocktailId, userId, defaultFavo = false, id}) {
+function FavoriteButton ({cocktailId, userId, defaultFavo = false}) {
     const apiKey = import.meta.env.VITE_API_KEY;
-    const apiUrl = import.meta.env.VITE_API_URL;
+    const apiUrl = import.meta.env.VITE_API_NOVI_URL;
     const projectId = import.meta.env.VITE_API_PROJECT_KEY;
 
     const [favorite, toggleFavorite] = useState(defaultFavo);
-
+    console.log(userId)
     async function toggle(){
-        // Toevoegen Haal alle id's op, zet ze in een array voeg de laatste toe en geef terug (put actie)
+        // Toevoegen > Haal alle id's op, zet ze in een array voeg de laatste toe en geef terug (put actie)
         // Verwijderen Haal alle id's op, zet ze in een array, verwijder die je weg wil en geef terug (put)
-        const response = await axios.get(`${apiUrl}${apiKey}/user_profiles/${id}`, {
+        const response = await axios.get(`${apiUrl}api/user_profiles/${userId}`, {
             headers:{
                 'novi-education-project-id': `${projectId}`
             }
         });
         console.log(response);
-        let cocktailIds = response.data.cocktail_ids || [];
+        let cocktailIdsString = response.data.cocktail_ids || "";
+        let cocktailIds = cocktailIdsString
+            ? cocktailIdsString.split(",").map(id => id.trim())
+            : [];
 
         if (favorite) {
             cocktailIds = cocktailIds.filter(counter => counter !== cocktailId);
@@ -27,11 +30,13 @@ function FavoriteButton ({cocktailId, userId, defaultFavo = false, id}) {
                 console.log('werkt welllll')
             }
         }
-        await axios.put(`${apiUrl}${apiKey}/user_profiles/${id}`,
+        const newCocktailIdsString = cocktailIds.join(",");
+
+        await axios.put(`${apiUrl}api/user_profiles/${userId}`,
             {
                 id: userId,
                 user_id: userId,
-                cocktail_ids: cocktailIds
+                cocktail_ids: newCocktailIdsString
             },
             {headers: {
                     'novi-education-project-id': `${projectId}`

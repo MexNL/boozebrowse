@@ -70,9 +70,9 @@ function CocktailBlockRandom() {
                 <Link to={`/product/${cocktailId}`}>
                     <h3>{cocktailName}</h3>
                 </Link>
+                {/*{profileId}*/}
                 {/*<h3>{cocktailName}</h3>*/}
                 <h3>{cocktailAlcohol}</h3>
-                <p>ID:{profileId}</p>
                 {isAuth && cocktailId &&(
                     <FavoriteButton
                         cocktailId={cocktailId}

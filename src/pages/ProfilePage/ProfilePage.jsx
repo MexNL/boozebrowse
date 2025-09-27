@@ -1,4 +1,4 @@
-import {useContext} from "react";
+import {useContext, useEffect} from "react";
 import {AuthContext} from "../../context/AuthContext.jsx";
 import CocktailBlockIds from "../../components/CocktailBlockIds/CocktailBlockIds.jsx";
 
@@ -8,8 +8,11 @@ function ProfilePage() {
     const testArray = [15182];
 
 
+    console.log(cocktail_ids)
 
+    useEffect(() => {
 
+    }, []);
 
     return (
         <div className="profile-page">
