@@ -1,17 +1,49 @@
-import {useContext, useEffect} from "react";
+import {useContext, useEffect, useState} from "react";
 import {AuthContext} from "../../context/AuthContext.jsx";
 import CocktailBlockIds from "../../components/CocktailBlockIds/CocktailBlockIds.jsx";
+import axios from "axios";
+
 
 
 function ProfilePage() {
+
+    const apiUrl = import.meta.env.VITE_API_NOVI_URL;
+    const projectId = import.meta.env.VITE_API_PROJECT_KEY;
+
+    const testArray = ['14888', '12674', '11052'];
+
     const {isAuth, name, status, email, cocktail_ids, id, user} = useContext(AuthContext);
-    const testArray = [15182];
+    const [cocktailIds, setCocktailIds] = useState([]);
+    const [cocktailIdsString, setCocktailIdsString] = useState([]);
+    async function refreshCocktailIds(userId) {
+        try {
+            const response = await axios.get(`${apiUrl}api/user_profiles/${userId}`, {
+                headers: {
+                    'novi-education-project-id': projectId
+                }
+            });
+
+            let cocktailIdsString = response.data.cocktail_ids || "";
+            let cocktailIds = cocktailIdsString
+                ? cocktailIdsString.split(",").map(id => id.trim())
+                : [];
+
+            console.log(cocktailIdsString)
+
+            setCocktailIds(cocktailIds);
+            setCocktailIdsString(cocktailIdsString);
+
+        } catch (error) {
+            console.error("Error fetching cocktail IDs:", error);
+        }
+    }
 
 
-    console.log(cocktail_ids)
 
     useEffect(() => {
-
+        if (id) {
+            refreshCocktailIds(id);
+        }
     }, []);
 
     return (
@@ -26,61 +58,18 @@ function ProfilePage() {
                                     src="https://via.placeholder.com/120"
                                     alt="Profile"
                                 />
+                                <p>{cocktailIdsString}</p>
+
                             </div>
-
-
-
-
-
-
-                            {/*TEST BEGIN*/}
-
-
-
-
-
-
-
-                            <p><strong>ID</strong> {id}</p>
-                            <p><strong>Name:</strong> {name}</p>
-                            <p><strong>Email:</strong> {email}</p>
-                            <p><strong>Cocktail ID's:</strong></p>
-                            <ul>
-                                {cocktail_ids.map((id, index) => (
-                                    <li key={index}>{id}</li>
-                                ))}
-                            </ul>
-
-
-
-
-
-
-
-
-
-                            {/*TEST EINDE*/}
-
-
-
-
-
-
-
-
-
-
-
-
                         </section>
-
                     </aside>
                     <section className="saved-cocktails">
                         <header>
                             <h2>Saved Cocktails</h2>
                         </header>
                         <article>
-                            <CocktailBlockIds ids={cocktail_ids}/>
+                            <CocktailBlockIds ids={cocktailIdsString}/>
+
                         </article>
                     </section>
                 </main>
