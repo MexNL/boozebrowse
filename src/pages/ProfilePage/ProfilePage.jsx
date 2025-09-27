@@ -27,8 +27,8 @@ function ProfilePage() {
             let cocktailIds = cocktailIdsString
                 ? cocktailIdsString.split(",").map(id => id.trim())
                 : [];
-
-            console.log(cocktailIdsString)
+            //Dit is nogsteeds een string, dit moet een array worden voor het id component
+            console.log(typeof cocktailIdsString)
 
             setCocktailIds(cocktailIds);
             setCocktailIdsString(cocktailIdsString);
@@ -69,7 +69,6 @@ function ProfilePage() {
                         </header>
                         <article>
                             <CocktailBlockIds ids={cocktailIdsString}/>
-
                         </article>
                     </section>
                 </main>
