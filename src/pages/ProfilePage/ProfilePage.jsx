@@ -10,7 +10,7 @@ function ProfilePage() {
     const apiUrl = import.meta.env.VITE_API_NOVI_URL;
     const projectId = import.meta.env.VITE_API_PROJECT_KEY;
 
-    const testArray = ['14888', '12674', '11052'];
+    // const testArray = ['14888', '12674', '11052'];
 
     const {isAuth, name, status, email, cocktail_ids, id, user} = useContext(AuthContext);
     const [cocktailIds, setCocktailIds] = useState([]);
@@ -23,15 +23,12 @@ function ProfilePage() {
                 }
             });
 
-            let cocktailIdsString = response.data.cocktail_ids || "";
-            let cocktailIds = cocktailIdsString
+            let cocktailIdsStringA = response.data.cocktail_ids || "";
+            let cocktailIdsB = cocktailIdsString
                 ? cocktailIdsString.split(",").map(id => id.trim())
                 : [];
-            //Dit is nogsteeds een string, dit moet een array worden voor het id component
-            console.log(typeof cocktailIdsString)
-
-            setCocktailIds(cocktailIds);
-            setCocktailIdsString(cocktailIdsString);
+            setCocktailIds(cocktailIdsB);
+            setCocktailIdsString(cocktailIdsStringA);
 
         } catch (error) {
             console.error("Error fetching cocktail IDs:", error);
@@ -68,7 +65,7 @@ function ProfilePage() {
                             <h2>Saved Cocktails</h2>
                         </header>
                         <article>
-                            <CocktailBlockIds ids={cocktailIdsString}/>
+                            <CocktailBlockIds ids={cocktailIds}/>
                         </article>
                     </section>
                 </main>
