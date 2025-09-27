@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import ozToMl from "../../helpers/ozToMl.js";
 import "./CocktailBlockIngredient.css";
 import {Link} from "react-router-dom";
+import FavoriteButton from "../FavoriteButton/FavoriteButton.jsx";
 
 function CocktailBlockIngredient({ingredient, start=0}) {
     const apiKey = import.meta.env.VITE_API_KEY;

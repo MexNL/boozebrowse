@@ -4,7 +4,7 @@ import CocktailBlockIds from "../../components/CocktailBlockIds/CocktailBlockIds
 
 
 function ProfilePage() {
-    const {isAuth, name, status, email, cocktail_ids} = useContext(AuthContext);
+    const {isAuth, name, status, email, cocktail_ids, id, user} = useContext(AuthContext);
     const testArray = [15182];
 
 
@@ -38,7 +38,7 @@ function ProfilePage() {
 
 
 
-
+                            <p><strong>ID</strong> {id}</p>
                             <p><strong>Name:</strong> {name}</p>
                             <p><strong>Email:</strong> {email}</p>
                             <p><strong>Cocktail ID's:</strong></p>

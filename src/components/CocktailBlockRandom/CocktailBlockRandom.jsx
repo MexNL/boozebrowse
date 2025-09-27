@@ -1,8 +1,10 @@
 import axios from "axios";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import ozToMl from "../../helpers/ozToMl.js";
 import "./CocktailBlockRandom.css"
 import {Link} from "react-router-dom";
+import FavoriteButton from "../FavoriteButton/FavoriteButton.jsx";
+import {AuthContext} from "../../context/AuthContext.jsx";
 
 
 function CocktailBlockRandom() {
@@ -16,7 +18,9 @@ function CocktailBlockRandom() {
     const [cocktailCategory, setCocktailCategory] = useState("")
     const [cocktailAlcohol, setCocktailAlcohol] = useState("")
     const [cocktailIngredients, setCocktailIngredients] = useState([]);
-    const [id, setId] = useState(0);
+    const [cocktailId, setCocktailId] = useState(null);
+
+    const {  isAuth, id: profileId, cocktail_ids } = useContext(AuthContext);
 
     async function randomApiCall() {
         try {
@@ -26,13 +30,13 @@ function CocktailBlockRandom() {
             const instruction = response.data.drinks[0].strInstructions;
             const category = response.data.drinks[0].strCategory;
             const alcoholic = response.data.drinks[0].strAlcoholic;
-            const id = response.data.drinks[0].idDrink;
+            const idApi = response.data.drinks[0].idDrink;
             setCocktailName(name);
             setCocktailInstruction(instruction);
             setCocktailPhoto(photo);
             setCocktailCategory(category);
             setCocktailAlcohol(alcoholic);
-            setId(id);
+            setCocktailId(idApi);
 
             const ingredientList = [];
 
@@ -59,14 +63,23 @@ function CocktailBlockRandom() {
         randomApiCall();
     }, []);
 
+// console.log(auth.id)
     return (
         <div className="cocktail-container">
             <header className="cocktail-header">
-                <Link to={`/product/${id}`}>
+                <Link to={`/product/${cocktailId}`}>
                     <h3>{cocktailName}</h3>
                 </Link>
                 {/*<h3>{cocktailName}</h3>*/}
                 <h3>{cocktailAlcohol}</h3>
+                <p>ID:{profileId}</p>
+                {isAuth && cocktailId &&(
+                    <FavoriteButton
+                        cocktailId={cocktailId}
+                        userId={profileId}
+                        defaultFavo={cocktail_ids?.includes(String(cocktailId))}
+                    />
+                )}
             </header>
             <div className="cocktail-container-body">
                 <section className="cocktail-section-one">

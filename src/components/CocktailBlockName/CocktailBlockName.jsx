@@ -1,8 +1,10 @@
 import axios from "axios";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import ozToMl from "../../helpers/ozToMl.js";
 import "./CocktailBlockName.css"
 import {Link} from "react-router-dom";
+import FavoriteButton from "../FavoriteButton/FavoriteButton.jsx";
+import {AuthContext} from "../../context/AuthContext.jsx";
 
 
 function CocktailBlockName({search, input}) {
@@ -17,6 +19,8 @@ function CocktailBlockName({search, input}) {
     const [cocktailAlcohol, setCocktailAlcohol] = useState("")
     const [cocktailIngredients, setCocktailIngredients] = useState([]);
     const [id, setId] = useState(0);
+
+    const { isAuth, id: profileId, user, cocktail_ids } = useContext(AuthContext);
 
     async function searchApiCall() {
         try {
@@ -66,6 +70,14 @@ function CocktailBlockName({search, input}) {
                     <h3>{cocktailName}</h3>
                 </Link>
                 <h3>{cocktailAlcohol}</h3>
+                {isAuth && (
+                    <FavoriteButton
+                        cocktailId={id}
+                        user={user}
+                        id={profileId}
+                        defaultFavo={cocktail_ids.includes(id)}
+                        />
+                )}
             </header>
             <div className="cocktail-container-body">
                 <section className="cocktail-section-one">
