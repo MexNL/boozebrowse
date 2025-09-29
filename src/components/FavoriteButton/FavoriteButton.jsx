@@ -17,18 +17,13 @@ function FavoriteButton ({cocktailId, userId, defaultFavo = false}) {
             }
         });
         console.log(response);
-        let cocktailIdsString = response.data.cocktail_ids || "";
-        let cocktailIds = cocktailIdsString
-            ? cocktailIdsString.split(",").map(id => id.trim())
-            : [];
+        let cocktailIdsRaw = response.data.cocktail_ids || [];
+        let cocktailIds = [];
 
-        if (favorite) {
-            cocktailIds = cocktailIds.filter(counter => counter !== cocktailId);
-        } else {
-            if (!cocktailIds.includes(cocktailId)) {
-                cocktailIds.push(cocktailId);
-                console.log('werkt welllll')
-            }
+        if (Array.isArray(cocktailIdsRaw)) {
+            cocktailIds = cocktailIdsRaw.map(id => String(id).trim());
+        } else if (typeof cocktailIdsRaw === "string") {
+            cocktailIds = cocktailIdsRaw.split(",").map(id => id.trim());
         }
         const newCocktailIdsString = cocktailIds.join(",");
 

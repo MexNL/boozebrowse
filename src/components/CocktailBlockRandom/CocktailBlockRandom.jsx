@@ -20,7 +20,7 @@ function CocktailBlockRandom() {
     const [cocktailIngredients, setCocktailIngredients] = useState([]);
     const [cocktailId, setCocktailId] = useState(null);
 
-    const {  isAuth, id: profileId, cocktail_ids } = useContext(AuthContext);
+    const {isAuth, id: profileId, cocktail_ids} = useContext(AuthContext);
 
     async function randomApiCall() {
         try {
@@ -73,7 +73,7 @@ function CocktailBlockRandom() {
                 {/*{profileId}*/}
                 {/*<h3>{cocktailName}</h3>*/}
                 <h3>{cocktailAlcohol}</h3>
-                {isAuth && cocktailId &&(
+                {isAuth && cocktailId && (
                     <FavoriteButton
                         cocktailId={cocktailId}
                         userId={profileId}
@@ -101,7 +101,7 @@ function CocktailBlockRandom() {
             </div>
 
         </div>
-)
+    )
 }
 
 export default CocktailBlockRandom;

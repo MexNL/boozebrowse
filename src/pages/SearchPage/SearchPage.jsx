@@ -1,5 +1,5 @@
 import "./SearchPage.css"
-import { useState } from "react";
+import {useState} from "react";
 import CocktailBlockName from "../../components/CocktailBlockName/CocktailBlockName.jsx";
 import CocktailBlockRandom from "../../components/CocktailBlockRandom/CocktailBlockRandom.jsx";
 import CocktailBlockIngredient from "../../components/CocktailBlockIngredient/CocktailBlockIngredient.jsx";
@@ -22,7 +22,7 @@ function SearchPage() {
         setSearchReset(prev => prev + 1);
     }
 
-    return(
+    return (
         <div className="search-container">
             <section className="search-container-input">
                 <form className="search-container-input-form" onSubmit={e => e.preventDefault()}>
@@ -43,10 +43,24 @@ function SearchPage() {
             </section>
 
             <section className="search-container-output">
-                {searchReset ? (
-                    <CocktailBlockName search={type} input={searchType} />
-                ) : null}
-                <CocktailBlockIngredient ingredient={searchType} start={searchReset} />
+                {searchReset > 0 && (
+                    <>
+                        {(type === "s" && searchType.trim() !== "") || (type === "f" && searchType.trim().length === 1) ? (
+                            <CocktailBlockName key={searchReset} search={type} input={searchType}/>
+                        ) : null}
+
+                        {type === "i" && searchType.trim() !== "" ? (
+                            <CocktailBlockIngredient key={searchReset} ingredient={searchType}/>
+                        ) : null}
+
+                        {type === "random_cocktail" ? (
+                            <>
+                                <CocktailBlockRandom key={searchReset + "_1"} />
+                                <CocktailBlockRandom key={searchReset + "_2"} />
+                            </>
+                        ) : null}
+                    </>
+                )}
 
             </section>
         </div>

@@ -23,12 +23,17 @@ function ProfilePage() {
                 }
             });
 
-            let cocktailIdsStringA = response.data.cocktail_ids || "";
-            let cocktailIdsB = cocktailIdsString
-                ? cocktailIdsString.split(",").map(id => id.trim())
-                : [];
+            let cocktailIdsRaw = response.data.cocktail_ids || [];
+            let cocktailIdsB = [];
+
+            if (Array.isArray(cocktailIdsRaw)) {
+                cocktailIdsB = cocktailIdsRaw.map(id => String(id).trim());
+            } else if (typeof cocktailIdsRaw === "string") {
+                cocktailIdsB = cocktailIdsRaw.split(",").map(id => id.trim());
+            }
+
             setCocktailIds(cocktailIdsB);
-            setCocktailIdsString(cocktailIdsStringA);
+            setCocktailIdsString(cocktailIdsRaw);
 
         } catch (error) {
             console.error("Error fetching cocktail IDs:", error);
