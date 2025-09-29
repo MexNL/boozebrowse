@@ -9,6 +9,8 @@ function SearchPage() {
     const [type, setType] = useState("");
     const [searchType, setSearchType] = useState("");
     const [searchReset, setSearchReset] = useState(0);
+    //Naam nog veranderen
+    const [searchIssue, setSearchIssue] = useState({type:"", input:""})
 
     const choice = (e) => {
         setType(e.target.value);
@@ -17,9 +19,10 @@ function SearchPage() {
     const choiceType = (e) => {
         setSearchType(e.target.value);
     }
-
+// Bij elke toetsaanslag begint hij weer te ratelen....
     const handleSearchClick = () => {
         setSearchReset(prev => prev + 1);
+        setSearchIssue({type, input: searchType.trim()});
     }
 
     return (
@@ -28,7 +31,7 @@ function SearchPage() {
                 <form className="search-container-input-form" onSubmit={e => e.preventDefault()}>
                     <label htmlFor="cocktail_search">Search cocktail by: </label>
                     <select id="cocktail_search" name="cocktail_dropdown_input" value={type} onChange={choice}>
-                        <option>Choose</option>
+                        <option value="">Choose</option>
                         <option value="s">Name</option>
                         <option value="i">Ingredient</option>
                         <option value="f">First letter</option>
@@ -45,15 +48,16 @@ function SearchPage() {
             <section className="search-container-output">
                 {searchReset > 0 && (
                     <>
-                        {(type === "s" && searchType.trim() !== "") || (type === "f" && searchType.trim().length === 1) ? (
-                            <CocktailBlockName key={searchReset} search={type} input={searchType}/>
+                        {(searchIssue.type === "s" && searchIssue.input.trim() !== "") ||
+                        (searchIssue.type === "f" && searchIssue.input.trim().length === 1) ? (
+                            <CocktailBlockName key={searchReset} search={searchIssue.type} input={searchIssue.input}/>
                         ) : null}
 
-                        {type === "i" && searchType.trim() !== "" ? (
-                            <CocktailBlockIngredient key={searchReset} ingredient={searchType}/>
+                        {searchIssue.type === "i" && searchIssue.input.trim() !== "" ? (
+                            <CocktailBlockIngredient key={searchReset} ingredient={searchIssue.input}/>
                         ) : null}
 
-                        {type === "random_cocktail" ? (
+                        {searchIssue.type === "random_cocktail" ? (
                             <>
                                 <CocktailBlockRandom key={searchReset + "_1"} />
                                 <CocktailBlockRandom key={searchReset + "_2"} />

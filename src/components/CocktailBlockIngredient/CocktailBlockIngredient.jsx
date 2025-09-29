@@ -5,7 +5,7 @@ import "./CocktailBlockIngredient.css";
 import {Link} from "react-router-dom";
 import FavoriteButton from "../FavoriteButton/FavoriteButton.jsx";
 
-function CocktailBlockIngredient({ingredient, start=0}) {
+function CocktailBlockIngredient({ingredient}) {
     const apiKey = import.meta.env.VITE_API_KEY;
     const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -56,10 +56,10 @@ function CocktailBlockIngredient({ingredient, start=0}) {
     }
 
     useEffect(() => {
-        if(start) {
+        if(ingredient && ingredient.trim() !== "") {
             initFetch()
         }
-    }, [start]);
+    }, [ingredient]);
 
     return (
         <div className="main-component-container">
