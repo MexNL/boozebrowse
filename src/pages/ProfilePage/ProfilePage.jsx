@@ -31,7 +31,7 @@ function ProfilePage() {
             } else if (typeof cocktailIdsRaw === "string") {
                 cocktailIdsB = cocktailIdsRaw.split(",").map(id => id.trim());
             }
-
+            console.log("Parsed cocktail IDs:", cocktailIdsB);
             setCocktailIds(cocktailIdsB);
             setCocktailIdsString(cocktailIdsRaw);
 
@@ -41,12 +41,11 @@ function ProfilePage() {
     }
 
 
-
     useEffect(() => {
         if (id) {
             refreshCocktailIds(id);
         }
-    }, []);
+    }, [id]);
 
     return (
         <div className="profile-page">
@@ -70,7 +69,11 @@ function ProfilePage() {
                             <h2>Saved Cocktails</h2>
                         </header>
                         <article>
-                            <CocktailBlockIds ids={cocktailIds}/>
+                            {cocktailIds.length > 0 ? (
+                                <CocktailBlockIds ids={cocktailIds}/>
+                            ) : (
+                                <p>Loading saved cocktails...</p>
+                            )}
                         </article>
                     </section>
                 </main>

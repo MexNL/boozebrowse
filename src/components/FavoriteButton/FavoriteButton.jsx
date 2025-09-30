@@ -25,6 +25,10 @@ function FavoriteButton ({cocktailId, userId, defaultFavo = false}) {
         } else if (typeof cocktailIdsRaw === "string") {
             cocktailIds = cocktailIdsRaw.split(",").map(id => id.trim());
         }
+
+        if(!cocktailIds.includes(String(cocktailId))) {
+            cocktailIds.push(String(cocktailId));
+        }
         const newCocktailIdsString = cocktailIds.join(",");
 
         await axios.put(`${apiUrl}api/user_profiles/${userId}`,

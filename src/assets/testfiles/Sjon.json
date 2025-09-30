@@ -53,17 +53,17 @@
       {
         "id": 1,
         "user_id": 1,
-        "cocktail_ids": "11007, 11007, 11007, 11006"
+        "cocktail_ids": "11007"
       },
       {
         "id": 2,
         "user_id": 2,
-        "cocktail_ids": "404"
+        "cocktail_ids": "11007"
       },
       {
         "id": 3,
         "user_id": 3,
-        "cocktail_ids": "1"
+        "cocktail_ids": "11007"
       }
     ]
   }
