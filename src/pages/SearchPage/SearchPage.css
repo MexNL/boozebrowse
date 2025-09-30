@@ -5,3 +5,12 @@
     align-items: center;
     gap: 2rem;
 }
+
+.random-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    margin: 2rem 0;
+    /*background-color: chocolate;*/
+}

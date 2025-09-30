@@ -58,10 +58,10 @@ function SearchPage() {
                         ) : null}
 
                         {searchIssue.type === "random_cocktail" ? (
-                            <>
+                            <div className="random-container">
                                 <CocktailBlockRandom key={searchReset + "_1"} />
                                 <CocktailBlockRandom key={searchReset + "_2"} />
-                            </>
+                            </div>
                         ) : null}
                     </>
                 )}
