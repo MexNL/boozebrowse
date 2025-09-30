@@ -2,6 +2,7 @@ import {useContext, useEffect, useState} from "react";
 import {AuthContext} from "../../context/AuthContext.jsx";
 import CocktailBlockIds from "../../components/CocktailBlockIds/CocktailBlockIds.jsx";
 import axios from "axios";
+import "../ProfilePage/ProfilePage.css"
 
 
 
