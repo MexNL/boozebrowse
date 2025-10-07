@@ -12,20 +12,26 @@ function CocktailBlockIds({ ids = [] }) {
     const [cocktails, setCocktails] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const batchSize = 20;
+    const [loading, setLoading] = useState(false);
+
 
     async function fetchBatch(index) {
         const batchIds = ids.slice(index, index + batchSize);
         if (batchIds.length === 0) return;
 
         try {
+            setLoading(true);
             const cocktailPromises = batchIds.map((id) =>
                 axios.get(`${apiUrl}${apiKey}/lookup.php?i=${id}`)
             );
             const cocktailResponses = await Promise.all(cocktailPromises);
 
+
             const drinks = cocktailResponses.map((res) => {
                 const drink = res.data.drinks[0];
                 const ingredientList = [];
+
+
 
                 for (let i = 1; i <= 15; i++) {
                     const ingredient = drink[`strIngredient${i}`];
@@ -46,6 +52,8 @@ function CocktailBlockIds({ ids = [] }) {
             setCurrentIndex((prev) => prev + batchSize);
         } catch (err) {
             console.error("Error fetching cocktails:", err);
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -59,6 +67,7 @@ function CocktailBlockIds({ ids = [] }) {
 
     return (
         <div className="main-component-container">
+            {loading && <div>Laden...</div>}
             <div className="main-container">
                 {cocktails.map((cocktail, idx) => (
                     <div key={idx} className="cocktail-container">
@@ -68,7 +77,11 @@ function CocktailBlockIds({ ids = [] }) {
                         </header>
                         <div className="cocktail-container-body">
                             <section className="cocktail-section-one">
-                                <img src={cocktail.strDrinkThumb} alt={cocktail.strDrink} />
+                                <img src={cocktail.strDrinkThumb} alt={cocktail.strDrink}/>
+                                <h4>IBA</h4>
+                                <p>{cocktail.strIBA ? cocktail.strIBA : "No IBA found"}</p>
+                                <h4>Glass</h4>
+                                <p>{cocktail.strGlass}</p>
                                 <h4>Ingredients</h4>
                                 <ul className="cocktail-section-one-ul">
                                     {cocktail.ingredients.map((item, index) => (

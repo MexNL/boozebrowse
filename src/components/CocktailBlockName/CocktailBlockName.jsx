@@ -24,8 +24,11 @@ function CocktailBlockName({search, input}) {
 
     const { isAuth, id: profileId, user, cocktail_ids } = useContext(AuthContext);
 
+    const [loading, setLoading] = useState(false);
+
     async function searchApiCall() {
         try {
+            setLoading(true);
             const response = await axios.get(`${apiUrl}${apiKey}/search.php?${search}=${input}`)
             const name = response.data.drinks[0].strDrink;
             const photo = response.data.drinks[0].strDrinkThumb;
@@ -63,6 +66,8 @@ function CocktailBlockName({search, input}) {
 
         } catch (e) {
             console.error("Error retrieving cocktail", e)
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -72,6 +77,7 @@ function CocktailBlockName({search, input}) {
 
     return (
         <div className="cocktail-container">
+            {loading && <div>Laden...</div>}
             <header className="cocktail-header">
                 <Link to={`/product/${id}`}>
                     <h3>{cocktailName}</h3>

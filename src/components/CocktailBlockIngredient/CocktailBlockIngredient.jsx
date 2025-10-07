@@ -14,46 +14,64 @@ function CocktailBlockIngredient({ingredient}) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const batchSize = 20;
 
+    const [loading, setLoading] = useState(false);
+
 
 
     async function fetchBatch(ids, index) {
-        const batchIds = ids.slice(index, index + batchSize);
-        const cocktailPromises = batchIds.map((id) =>
-            axios.get(`${apiUrl}${apiKey}/lookup.php?i=${id}`)
-        );
-        const cocktailResponses = await Promise.all(cocktailPromises);
+        try {
+            setLoading(true);
 
-        const drinks = cocktailResponses.map((res) => {
-            const drink = res.data.drinks[0];
-            const ingredientList = [];
+            const batchIds = ids.slice(index, index + batchSize);
+            const cocktailPromises = batchIds.map((id) =>
+                axios.get(`${apiUrl}${apiKey}/lookup.php?i=${id}`)
+            );
+            const cocktailResponses = await Promise.all(cocktailPromises);
 
-            for (let i = 1; i <= 15; i++) {
-                const ingredient = drink[`strIngredient${i}`];
-                const measurement = drink[`strMeasure${i}`];
-                if (ingredient) {
-                    const amount = measurement ? parseFloat(measurement) : 0;
-                    ingredientList.push({
-                        ingredient,
-                        measurement: amount ? ozToMl(amount) : "",
-                    });
+            const drinks = cocktailResponses.map((res) => {
+                const drink = res.data.drinks[0];
+                const ingredientList = [];
+
+                for (let i = 1; i <= 15; i++) {
+                    const ingredient = drink[`strIngredient${i}`];
+                    const measurement = drink[`strMeasure${i}`];
+                    if (ingredient) {
+                        const amount = measurement ? parseFloat(measurement) : 0;
+                        ingredientList.push({
+                            ingredient,
+                            measurement: amount ? ozToMl(amount) : "",
+                        });
+                    }
                 }
-            }
 
-            return {...drink, ingredients: ingredientList};
-        });
+                return { ...drink, ingredients: ingredientList };
+            });
 
-        setCocktails((prev) => [...prev, ...drinks]);
-        setCurrentIndex((prev) => prev + batchSize);
+            setCocktails((prev) => [...prev, ...drinks]);
+            setCurrentIndex((prev) => prev + batchSize);
+        } catch (error) {
+            console.error("Fout bij ophalen cocktails:", error);
+        } finally {
+            setLoading(false);
+        }
     }
 
     async function initFetch() {
-        const idResponse = await axios.get(`${apiUrl}${apiKey}/filter.php?i=${ingredient}`);
-        const responseIdArray = idResponse.data.drinks.map((item) => item.idDrink);
-        setAllIds(responseIdArray);
-        setCocktails([]);
-        setCurrentIndex(0);
-        fetchBatch(responseIdArray, 0);
+        try {
+            setLoading(true);
+            const idResponse = await axios.get(`${apiUrl}${apiKey}/filter.php?i=${ingredient}`);
+            const responseIdArray = idResponse.data.drinks.map((item) => item.idDrink);
+            setAllIds(responseIdArray);
+            setCocktails([]);
+            setCurrentIndex(0);
+            fetchBatch(responseIdArray, 0);
+        } catch (error) {
+            console.error("Fout bij ophalen ID's:", error);
+        } finally {
+            setLoading(false);
+        }
     }
+
 
     useEffect(() => {
         if(ingredient && ingredient.trim() !== "") {
@@ -63,6 +81,7 @@ function CocktailBlockIngredient({ingredient}) {
 
     return (
         <div className="main-component-container">
+            {loading && <div>Laden...</div>}
             <div className="main-container">
                 {cocktails.map((cocktail, idx) => (
                     <div key={idx} className="cocktail-container">

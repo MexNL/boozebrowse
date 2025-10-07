@@ -22,9 +22,11 @@ function CocktailBlockRandom() {
     const [cocktailGlass, setCocktailGlass] = useState(null)
     const [cocktailIba, setCocktailIba] = useState()
     const {isAuth, id: profileId, cocktail_ids} = useContext(AuthContext);
+    const [loading, setLoading] = useState(false);
 
     async function randomApiCall() {
         try {
+            setLoading(true);
             const response = await axios.get(`${apiUrl}${apiKey}/random.php`)
             const name = response.data.drinks[0].strDrink;
             const photo = response.data.drinks[0].strDrinkThumb;
@@ -61,6 +63,8 @@ function CocktailBlockRandom() {
 
         } catch (e) {
             console.error("Error retrieving cocktail", e)
+        } finally{
+            setLoading(false);
         }
     }
 
@@ -71,6 +75,7 @@ function CocktailBlockRandom() {
 // console.log(auth.id)
     return (
         <div className="cocktail-container">
+            {loading && <div>Laden...</div>}
             <header className="cocktail-header">
                 <Link to={`/product/${cocktailId}`}>
                     <h3>{cocktailName}</h3>
