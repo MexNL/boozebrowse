@@ -19,7 +19,8 @@ function CocktailBlockRandom() {
     const [cocktailAlcohol, setCocktailAlcohol] = useState("")
     const [cocktailIngredients, setCocktailIngredients] = useState([]);
     const [cocktailId, setCocktailId] = useState(null);
-
+    const [cocktailGlass, setCocktailGlass] = useState(null)
+    const [cocktailIba, setCocktailIba] = useState()
     const {isAuth, id: profileId, cocktail_ids} = useContext(AuthContext);
 
     async function randomApiCall() {
@@ -31,12 +32,16 @@ function CocktailBlockRandom() {
             const category = response.data.drinks[0].strCategory;
             const alcoholic = response.data.drinks[0].strAlcoholic;
             const idApi = response.data.drinks[0].idDrink;
+            const glass = response.data.drinks[0].strGlass;
+            const iba = response.data.drinks[0].strIBA;
             setCocktailName(name);
             setCocktailInstruction(instruction);
             setCocktailPhoto(photo);
             setCocktailCategory(category);
             setCocktailAlcohol(alcoholic);
             setCocktailId(idApi);
+            setCocktailGlass(glass);
+            setCocktailIba(iba);
 
             const ingredientList = [];
 
@@ -84,6 +89,10 @@ function CocktailBlockRandom() {
             <div className="cocktail-container-body">
                 <section className="cocktail-section-one">
                     <img src={cocktailPhoto} alt={name}/>
+                    <h4>IBA</h4>
+                    <p>{cocktailIba ? cocktailIba : "No IBA found"}</p>
+                    <h4>Glass</h4>
+                    <p>{cocktailGlass}</p>
                     <h4>Ingredients</h4>
                     <ul className="cocktail-section-one-ul">
                         {cocktailIngredients.map((item, index) => (

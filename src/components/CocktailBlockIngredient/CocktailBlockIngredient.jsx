@@ -73,6 +73,10 @@ function CocktailBlockIngredient({ingredient}) {
                         <div className="cocktail-container-body">
                             <section className="cocktail-section-one">
                                 <img src={cocktail.strDrinkThumb} alt={cocktail.strDrink}/>
+                                <h4>IBA</h4>
+                                <p>{cocktail.strIBA ? cocktail.strIBA : "No IBA found"}</p>
+                                <h4>Glass</h4>
+                                <p>{cocktail.strGlass}</p>
                                 <h4>Ingredients</h4>
                                 <ul className="cocktail-section-one-ul">
                                     {cocktail.ingredients.map((item, index) => (

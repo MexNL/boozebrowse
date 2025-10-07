@@ -57,11 +57,9 @@ function ProfilePage() {
                         <section className="login-container-body">
                             <div className="profile-image">
                                 <img
-                                    src="https://via.placeholder.com/120"
+                                    src="src/assets/smile.webp"
                                     alt="Profile"
                                 />
-                                <p>{cocktailIdsString}</p>
-
                             </div>
                         </section>
                     </aside>

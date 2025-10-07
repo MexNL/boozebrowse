@@ -19,6 +19,8 @@ function CocktailBlockName({search, input}) {
     const [cocktailAlcohol, setCocktailAlcohol] = useState("")
     const [cocktailIngredients, setCocktailIngredients] = useState([]);
     const [id, setId] = useState(0);
+    const [cocktailGlass, setCocktailGlass] = useState(null)
+    const [cocktailIba, setCocktailIba] = useState()
 
     const { isAuth, id: profileId, user, cocktail_ids } = useContext(AuthContext);
 
@@ -31,12 +33,17 @@ function CocktailBlockName({search, input}) {
             const category = response.data.drinks[0].strCategory;
             const alcoholic = response.data.drinks[0].strAlcoholic;
             const id = response.data.drinks[0].idDrink;
+            const glass = response.data.drinks[0].strGlass;
+            const iba = response.data.drinks[0].strIBA;
             setId(id);
             setCocktailName(name);
             setCocktailInstruction(instruction);
             setCocktailPhoto(photo);
             setCocktailCategory(category);
             setCocktailAlcohol(alcoholic);
+            setCocktailGlass(glass);
+            setCocktailIba(iba);
+
 
             const ingredientList = [];
 
@@ -82,6 +89,10 @@ function CocktailBlockName({search, input}) {
             <div className="cocktail-container-body">
                 <section className="cocktail-section-one">
                     <img src={cocktailPhoto} alt={name}/>
+                    <h4>IBA</h4>
+                    <p>{cocktailIba ? cocktailIba : "No IBA found"}</p>
+                    <h4>Glass</h4>
+                    <p>{cocktailGlass}</p>
                     <h4>Ingredients</h4>
                     <ul className="cocktail-section-one-ul">
                         {cocktailIngredients.map((item, index) => (
