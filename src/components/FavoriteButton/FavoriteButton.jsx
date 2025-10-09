@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import axios from "axios";
 
 function FavoriteButton({cocktailId, userId, defaultFavo = false}) {
@@ -11,6 +11,33 @@ function FavoriteButton({cocktailId, userId, defaultFavo = false}) {
 
     console.log(userId)
 
+    useEffect(() => {
+        async function checkFavorite() {
+            try {
+                const response = await axios.get(`${apiUrl}api/user_profiles/${userId}`, {
+                    headers: {
+                        'novi-education-project-id': `${projectId}`
+                    }
+                });
+                let cocktailIdsRaw = response.data.cocktail_ids || [];
+                let cocktailIds = [];
+
+                if (Array.isArray(cocktailIdsRaw)) {
+                    cocktailIds = cocktailIdsRaw.map(id => String(id).trim());
+                } else if (typeof cocktailIdsRaw === "string") {
+                    cocktailIds = cocktailIdsRaw.split(",").map(id => id.trim());
+                }
+
+                if (cocktailIds.includes(String(cocktailId))) {
+                    toggleFavorite(true);
+                }
+            } catch (error) {
+                console.error("Fout bij checken favorieten:", error);
+            }
+        }
+        checkFavorite();
+    }, [cocktailId, userId]);
+
     async function toggle() {
         try {
             setLoading(true);
@@ -22,7 +49,6 @@ function FavoriteButton({cocktailId, userId, defaultFavo = false}) {
                     'novi-education-project-id': `${projectId}`
                 }
             });
-            console.log(response);
             let cocktailIdsRaw = response.data.cocktail_ids || [];
             let cocktailIds = [];
 
@@ -35,6 +61,11 @@ function FavoriteButton({cocktailId, userId, defaultFavo = false}) {
             if (!cocktailIds.includes(String(cocktailId))) {
                 cocktailIds.push(String(cocktailId));
             }
+
+            if (cocktailIds.includes(String(cocktailId)) && favorite) {
+                cocktailIds = cocktailIds.filter(id => id !== String(cocktailId));
+            }
+
             const newCocktailIdsString = cocktailIds.join(",");
 
             await axios.put(

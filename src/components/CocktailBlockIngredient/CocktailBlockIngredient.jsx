@@ -1,9 +1,10 @@
 import axios from "axios";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import ozToMl from "../../helpers/ozToMl.js";
 import "./CocktailBlockIngredient.css";
 import {Link} from "react-router-dom";
 import FavoriteButton from "../FavoriteButton/FavoriteButton.jsx";
+import {AuthContext} from "../../context/AuthContext.jsx";
 
 function CocktailBlockIngredient({ingredient}) {
     const apiKey = import.meta.env.VITE_API_KEY;
@@ -16,7 +17,7 @@ function CocktailBlockIngredient({ingredient}) {
 
     const [loading, setLoading] = useState(false);
 
-
+    const { isAuth, id: profileId, user, cocktail_ids } = useContext(AuthContext);
 
     async function fetchBatch(ids, index) {
         try {
@@ -72,7 +73,8 @@ function CocktailBlockIngredient({ingredient}) {
         }
     }
 
-
+    console.log(user)
+    console.log(profileId)
     useEffect(() => {
         if(ingredient && ingredient.trim() !== "") {
             initFetch()
@@ -88,6 +90,13 @@ function CocktailBlockIngredient({ingredient}) {
                         <header className="cocktail-header">
                             <Link to={`/product/${cocktail.idDrink}`}><h3>{cocktail.strDrink}</h3></Link>
                             <h3>{cocktail.strAlcoholic}</h3>
+                            {isAuth && (
+                                <FavoriteButton
+                                    cocktailId={cocktail.idDrink}
+                                    userId={profileId}
+                                    defaultFavo={cocktail_ids.includes(cocktail.idDrink)}
+                                />
+                            )}
                         </header>
                         <div className="cocktail-container-body">
                             <section className="cocktail-section-one">

@@ -86,8 +86,7 @@ function CocktailBlockName({search, input}) {
                 {isAuth && (
                     <FavoriteButton
                         cocktailId={id}
-                        user={user}
-                        id={profileId}
+                        userId={profileId}
                         defaultFavo={cocktail_ids.includes(id)}
                         />
                 )}
