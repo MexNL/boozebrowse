@@ -25,6 +25,7 @@ function CocktailBlockName({search, input}) {
     const { isAuth, id: profileId, user, cocktail_ids } = useContext(AuthContext);
 
     const [loading, setLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
 
     async function searchApiCall() {
         try {
@@ -66,6 +67,7 @@ function CocktailBlockName({search, input}) {
 
         } catch (e) {
             console.error("Error retrieving cocktail", e)
+            setErrorMessage("No cocktails found, try a different input")
         } finally {
             setLoading(false);
         }
@@ -76,45 +78,54 @@ function CocktailBlockName({search, input}) {
     }, [search, input]);
 
     return (
-        <div className="cocktail-container">
-            {loading && <div>Laden...</div>}
-            <header className="cocktail-header">
-                <Link to={`/product/${id}`}>
-                    <h3>{cocktailName}</h3>
-                </Link>
-                <h3>{cocktailAlcohol}</h3>
-                {isAuth && (
-                    <FavoriteButton
-                        cocktailId={id}
-                        userId={profileId}
-                        defaultFavo={cocktail_ids.includes(id)}
-                        />
-                )}
-            </header>
-            <div className="cocktail-container-body">
-                <section className="cocktail-section-one">
-                    <img src={cocktailPhoto} alt={name}/>
-                    <h4>IBA</h4>
-                    <p>{cocktailIba ? cocktailIba : "No IBA found"}</p>
-                    <h4>Glass</h4>
-                    <p>{cocktailGlass}</p>
-                    <h4>Ingredients</h4>
-                    <ul className="cocktail-section-one-ul">
-                        {cocktailIngredients.map((item, index) => (
-                            <li key={index}>
-                                {item.measurement ? `${item.measurement} ml` : ""} {item.ingredient}
-                            </li>
-                        ))}
-                    </ul>
-                </section>
+        <>
+            {errorMessage ? (
+                <div>{errorMessage}</div>
+            ) : (
+                <div className="cocktail-container">
 
-                <section className="cocktail-section-two">
-                    <div><h4>Catagory:</h4> <p>{cocktailCategory}</p></div>
-                    <div><h4>Instructions:</h4> <p>{cocktailInstruction}</p></div>
-                </section>
-            </div>
+                    {loading && <div>Laden...</div>}
+                    <header className="cocktail-header">
+                        <Link to={`/product/${id}`}>
+                            <h3>{cocktailName}</h3>
+                        </Link>
+                        <h3>{cocktailAlcohol}</h3>
+                        {isAuth && (
+                            <FavoriteButton
+                                cocktailId={id}
+                                userId={profileId}
+                                defaultFavo={cocktail_ids.includes(id)}
+                            />
+                        )}
+                    </header>
+                    <div className="cocktail-container-body">
+                        <section className="cocktail-section-one">
+                            <img src={cocktailPhoto} alt={name}/>
+                            <h4>IBA</h4>
+                            <p>{cocktailIba ? cocktailIba : "No IBA found"}</p>
+                            <h4>Glass</h4>
+                            <p>{cocktailGlass}</p>
+                            <h4>Ingredients</h4>
+                            <ul className="cocktail-section-one-ul">
+                                {cocktailIngredients.map((item, index) => (
+                                    <li key={index}>
+                                        {item.measurement ? `${item.measurement} ml` : ""} {item.ingredient}
+                                    </li>
+                                ))}
+                            </ul>
+                        </section>
 
-        </div>
+                        <section className="cocktail-section-two">
+                            <div><h4>Catagory:</h4> <p>{cocktailCategory}</p></div>
+                            <div><h4>Instructions:</h4> <p>{cocktailInstruction}</p></div>
+                        </section>
+                    </div>
+
+                </div>
+            )}
+
+        </>
+
     )
 }
 

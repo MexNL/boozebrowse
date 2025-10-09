@@ -16,8 +16,9 @@ function CocktailBlockIngredient({ingredient}) {
     const batchSize = 20;
 
     const [loading, setLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
 
-    const { isAuth, id: profileId, user, cocktail_ids } = useContext(AuthContext);
+    const {isAuth, id: profileId, user, cocktail_ids} = useContext(AuthContext);
 
     async function fetchBatch(ids, index) {
         try {
@@ -45,13 +46,14 @@ function CocktailBlockIngredient({ingredient}) {
                     }
                 }
 
-                return { ...drink, ingredients: ingredientList };
+                return {...drink, ingredients: ingredientList};
             });
 
             setCocktails((prev) => [...prev, ...drinks]);
             setCurrentIndex((prev) => prev + batchSize);
         } catch (error) {
             console.error("Fout bij ophalen cocktails:", error);
+            setErrorMessage("No cocktails found, try a different input");
         } finally {
             setLoading(false);
         }
@@ -68,6 +70,7 @@ function CocktailBlockIngredient({ingredient}) {
             fetchBatch(responseIdArray, 0);
         } catch (error) {
             console.error("Fout bij ophalen ID's:", error);
+            setErrorMessage("No cocktails found, try a different input")
         } finally {
             setLoading(false);
         }
@@ -76,66 +79,73 @@ function CocktailBlockIngredient({ingredient}) {
     console.log(user)
     console.log(profileId)
     useEffect(() => {
-        if(ingredient && ingredient.trim() !== "") {
+        if (ingredient && ingredient.trim() !== "") {
             initFetch()
         }
     }, [ingredient]);
 
     return (
-        <div className="main-component-container">
-            {loading && <div>Laden...</div>}
-            <div className="main-container">
-                {cocktails.map((cocktail, idx) => (
-                    <div key={idx} className="cocktail-container">
-                        <header className="cocktail-header">
-                            <Link to={`/product/${cocktail.idDrink}`}><h3>{cocktail.strDrink}</h3></Link>
-                            <h3>{cocktail.strAlcoholic}</h3>
-                            {isAuth && (
-                                <FavoriteButton
-                                    cocktailId={cocktail.idDrink}
-                                    userId={profileId}
-                                    defaultFavo={cocktail_ids.includes(cocktail.idDrink)}
-                                />
-                            )}
-                        </header>
-                        <div className="cocktail-container-body">
-                            <section className="cocktail-section-one">
-                                <img src={cocktail.strDrinkThumb} alt={cocktail.strDrink}/>
-                                <h4>IBA</h4>
-                                <p>{cocktail.strIBA ? cocktail.strIBA : "No IBA found"}</p>
-                                <h4>Glass</h4>
-                                <p>{cocktail.strGlass}</p>
-                                <h4>Ingredients</h4>
-                                <ul className="cocktail-section-one-ul">
-                                    {cocktail.ingredients.map((item, index) => (
-                                        <li key={index}>
-                                            {item.measurement ? `${item.measurement} ml` : ""}{" "}
-                                            {item.ingredient}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </section>
+        <>
+            {errorMessage ? (
+                <div>{errorMessage}</div>
+            ) : (<div className="main-component-container">
+                    {errorMessage && <div>{errorMessage}</div>}
+                    {loading && <div>Laden...</div>}
+                    <div className="main-container">
+                        {cocktails.map((cocktail, idx) => (
+                            <div key={idx} className="cocktail-container">
+                                <header className="cocktail-header">
+                                    <Link to={`/product/${cocktail.idDrink}`}><h3>{cocktail.strDrink}</h3></Link>
+                                    <h3>{cocktail.strAlcoholic}</h3>
+                                    {isAuth && (
+                                        <FavoriteButton
+                                            cocktailId={cocktail.idDrink}
+                                            userId={profileId}
+                                            defaultFavo={cocktail_ids.includes(cocktail.idDrink)}
+                                        />
+                                    )}
+                                </header>
+                                <div className="cocktail-container-body">
+                                    <section className="cocktail-section-one">
+                                        <img src={cocktail.strDrinkThumb} alt={cocktail.strDrink}/>
+                                        <h4>IBA</h4>
+                                        <p>{cocktail.strIBA ? cocktail.strIBA : "No IBA found"}</p>
+                                        <h4>Glass</h4>
+                                        <p>{cocktail.strGlass}</p>
+                                        <h4>Ingredients</h4>
+                                        <ul className="cocktail-section-one-ul">
+                                            {cocktail.ingredients.map((item, index) => (
+                                                <li key={index}>
+                                                    {item.measurement ? `${item.measurement} ml` : ""}{" "}
+                                                    {item.ingredient}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </section>
 
-                            <section className="cocktail-section-two">
-                                <div>
-                                    <h4>Category:</h4> <p>{cocktail.strCategory}</p>
+                                    <section className="cocktail-section-two">
+                                        <div>
+                                            <h4>Category:</h4> <p>{cocktail.strCategory}</p>
+                                        </div>
+                                        <div>
+                                            <h4>Instructions:</h4>{" "}
+                                            <p>{cocktail.strInstructions}</p>
+                                        </div>
+                                    </section>
                                 </div>
-                                <div>
-                                    <h4>Instructions:</h4>{" "}
-                                    <p>{cocktail.strInstructions}</p>
-                                </div>
-                            </section>
-                        </div>
+                            </div>
+                        ))}
                     </div>
-                ))}
-            </div>
-            <div className="load-more">
-                {currentIndex < allIds.length && (
-                    <button onClick={() => fetchBatch(allIds, currentIndex)}>Load More</button>
-                )}
-            </div>
-        </div>
+                    <div className="load-more">
+                        {currentIndex < allIds.length && (
+                            <button onClick={() => fetchBatch(allIds, currentIndex)}>Load More</button>
+                        )}
+                    </div>
+                </div>
 
+            )}
+
+        </>
 
     );
 }

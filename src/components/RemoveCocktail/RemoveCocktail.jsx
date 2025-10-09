@@ -9,6 +9,7 @@ function RemoveCocktail({cocktailId, userId, defaultFavo = false, onRemoved}) {
     const [favorite, toggleFavorite] = useState(defaultFavo);
     const [loading, setLoading] = useState(false);
 
+
     useEffect(() => {
         async function checkFavorite() {
             try {

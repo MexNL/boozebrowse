@@ -9,6 +9,7 @@ function SearchPage() {
     const [type, setType] = useState("");
     const [searchType, setSearchType] = useState("");
     const [searchReset, setSearchReset] = useState(0);
+
     //Naam nog veranderen
     const [searchIssue, setSearchIssue] = useState({type:"", input:""})
 

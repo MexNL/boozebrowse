@@ -14,7 +14,7 @@ function CocktailBlockProfile({ids = []}) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const batchSize = 20;
     const [loading, setLoading] = useState(false);
-
+    const [errorMessage, setErrorMessage] = useState("");
     const {isAuth, id: profileId, user, cocktail_ids} = useContext(AuthContext);
 
     async function fetchBatch(index) {
@@ -51,6 +51,7 @@ function CocktailBlockProfile({ids = []}) {
             setCurrentIndex((prev) => prev + batchSize);
         } catch (err) {
             console.error("Error fetching cocktails:", err);
+            setErrorMessage("No cocktails found, try a different input")
         } finally {
             setLoading(false);
         }
@@ -69,7 +70,12 @@ function CocktailBlockProfile({ids = []}) {
     }
 
     return (
-        <div className="main-component-container">
+
+        <>
+        {errorMessage ? (
+            <div>{errorMessage}</div>
+        ) : (<div className="main-component-container">
+
             {loading && <div>Laden...</div>}
             <div className="main-container">
                 {cocktails.map((cocktail, idx) => (
@@ -122,7 +128,9 @@ function CocktailBlockProfile({ids = []}) {
                     <button onClick={() => fetchBatch(currentIndex)}>Load More</button>
                 )}
             </div>
-        </div>
+        </div>)}
+        </>
+
     );
 }
 
