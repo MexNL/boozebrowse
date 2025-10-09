@@ -36,7 +36,7 @@ function RegisterPage() {
                 `${baseNoviUrl}api/user_profiles`,
                 {
                     user_id: newUser,
-                    cocktail_ids: [],
+                    cocktail_ids: "",
                 }
                 , {
                     headers: {
