@@ -1,15 +1,13 @@
 import {useState, useEffect} from "react";
 import axios from "axios";
 
-function FavoriteButton({cocktailId, userId, defaultFavo = false}) {
+function RemoveCocktail({cocktailId, userId, defaultFavo = false, onRemoved}) {
     const apiKey = import.meta.env.VITE_API_KEY;
     const apiUrl = import.meta.env.VITE_API_NOVI_URL;
     const projectId = import.meta.env.VITE_API_PROJECT_KEY;
 
     const [favorite, toggleFavorite] = useState(defaultFavo);
     const [loading, setLoading] = useState(false);
-
-    console.log(userId)
 
     useEffect(() => {
         async function checkFavorite() {
@@ -43,8 +41,6 @@ function FavoriteButton({cocktailId, userId, defaultFavo = false}) {
         try {
             setLoading(true);
 
-            // Toevoegen > Haal alle id's op, zet ze in een array voeg de laatste toe en geef terug (put actie)
-            // Verwijderen Haal alle id's op, zet ze in een array, verwijder die je weg wil en geef terug (put)
             const response = await axios.get(`${apiUrl}api/user_profiles/${userId}`, {
                 headers: {
                     'novi-education-project-id': `${projectId}`
@@ -59,13 +55,7 @@ function FavoriteButton({cocktailId, userId, defaultFavo = false}) {
                 cocktailIds = cocktailIdsRaw.split(",").map(id => id.trim());
             }
 
-            if (!cocktailIds.includes(String(cocktailId))) {
-                cocktailIds.push(String(cocktailId));
-            }
-
-            if (cocktailIds.includes(String(cocktailId)) && favorite) {
-                cocktailIds = cocktailIds.filter(id => id !== String(cocktailId));
-            }
+            cocktailIds = cocktailIds.filter(id => id !== String(cocktailId));
 
             const newCocktailIdsString = cocktailIds.join(",");
 
@@ -82,21 +72,21 @@ function FavoriteButton({cocktailId, userId, defaultFavo = false}) {
                     }
                 }
             );
-            toggleFavorite(!favorite);
+            toggleFavorite(false);
+            if (onRemoved) onRemoved();
         } catch (error) {
-            console.error("Fout bij updaten favorieten:", error);
+            console.error("Fout bij verwijderen van favorieten:", error);
         } finally {
             setLoading(false);
         }
     }
 
-    // if (!userId) return console.error("userId ontbreekt!");
     return (
         <button className={`favotireButton ${favorite ? "active" : ""}`} onClick={toggle}>
             {loading && <div>Laden...</div>}
-            {favorite ? "❤️" : "🤍"}
+            {favorite ? "❌" : ""}
         </button>
     );
 }
 
-export default FavoriteButton;
+export default RemoveCocktail;

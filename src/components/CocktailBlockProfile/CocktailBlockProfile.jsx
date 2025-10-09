@@ -3,10 +3,10 @@ import {useContext, useEffect, useState} from "react";
 import ozToMl from "../../helpers/ozToMl.js";
 import "../CocktailBlockIngredient/CocktailBlockIngredient.css";
 import {Link} from "react-router-dom";
-import FavoriteButton from "../FavoriteButton/FavoriteButton.jsx";
+import RemoveCocktail from "../../components/RemoveCocktail/RemoveCocktail.jsx";
 import {AuthContext} from "../../context/AuthContext.jsx";
 
-function CocktailBlockIds({ids = []}) {
+function CocktailBlockProfile({ids = []}) {
     const apiKey = import.meta.env.VITE_API_KEY;
     const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -28,11 +28,9 @@ function CocktailBlockIds({ids = []}) {
             );
             const cocktailResponses = await Promise.all(cocktailPromises);
 
-
             const drinks = cocktailResponses.map((res) => {
                 const drink = res.data.drinks[0];
                 const ingredientList = [];
-
 
                 for (let i = 1; i <= 15; i++) {
                     const ingredient = drink[`strIngredient${i}`];
@@ -66,6 +64,10 @@ function CocktailBlockIds({ids = []}) {
         }
     }, [ids]);
 
+    function handleRemoveCocktail(cocktailId) {
+        setCocktails((prev) => prev.filter(c => c.idDrink !== cocktailId));
+    }
+
     return (
         <div className="main-component-container">
             {loading && <div>Laden...</div>}
@@ -76,10 +78,11 @@ function CocktailBlockIds({ids = []}) {
                             <Link to={`/product/${cocktail.idDrink}`}><h3>{cocktail.strDrink}</h3></Link>
                             <h3>{cocktail.strAlcoholic}</h3>
                             {isAuth && (
-                                <FavoriteButton
+                                <RemoveCocktail
                                     cocktailId={cocktail.idDrink}
                                     userId={profileId}
-                                    defaultFavo={cocktail_ids.includes(cocktail.idDrink)}
+                                    defaultFavo={true}
+                                    onRemoved={() => handleRemoveCocktail(cocktail.idDrink)}
                                 />
                             )}
                         </header>
@@ -123,4 +126,4 @@ function CocktailBlockIds({ids = []}) {
     );
 }
 
-export default CocktailBlockIds;
+export default CocktailBlockProfile;
