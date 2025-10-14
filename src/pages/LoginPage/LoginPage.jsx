@@ -66,7 +66,7 @@ function LoginPage() {
 
                 <article className="auth-body">
                     <form>
-                        <label htmlFor="mail">Username</label>
+                        <label htmlFor="mail">Email</label>
                         <input
                             type="text"
                             id="mail"
