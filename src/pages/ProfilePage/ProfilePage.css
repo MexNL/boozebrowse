@@ -33,3 +33,26 @@
     border: 2px solid #ddd;
     object-fit: cover;
 }
+
+.cocktail-wrapper {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 1rem !important;
+    justify-content: center !important;
+}
+
+.cocktail-wrapper .cocktail-container {
+    width: 35% !important;
+}
+
+@media (max-width: 1024px) {
+    .cocktail-wrapper .cocktail-container {
+        width: 70% !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .cocktail-wrapper .cocktail-container {
+        width: 100% !important;
+    }
+}

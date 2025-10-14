@@ -9,3 +9,26 @@
     gap: 2rem;
     margin-top: 2rem;
 }
+
+.section-two {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 1rem !important;
+    justify-content: center !important;
+}
+
+.section-two .cocktail-container {
+    width: 35% !important;
+}
+
+@media (max-width: 1024px) {
+    .section-two .cocktail-container {
+        width: 70% !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .section-two .cocktail-container {
+        width: 100% !important;
+    }
+}

@@ -1,5 +1,5 @@
 import axios from "axios";
-import '../RegisterPage/RegisterPage.css'
+import '../LoginPage/LoginPage.css'
 import {Link} from "react-router-dom";
 import {useState} from "react";
 
@@ -62,20 +62,20 @@ function RegisterPage() {
 
     return (
         <div className="main-container">
-            <section className="register-container">
-                <header className="register-header">
+            <section className="auth-container">
+                <header className="auth-header">
                     <h1>Register</h1>
                 </header>
                 {message && <h3>{message}</h3>}
-                <article className="register-container-body">
+                <article className="auth-body">
                     <form>
                         <label htmlFor="email">Email</label>
                         <input
                             type="email"
                             id="email"
                             name="email"
-                            placeholder="Mail adress"
-                            className="register-input"
+                            placeholder="Mail address"
+                            className="auth-input"
                             required
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
@@ -87,7 +87,7 @@ function RegisterPage() {
                             id="password"
                             name="password"
                             placeholder="Password"
-                            className="register-input"
+                            className="auth-input"
                             required
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
@@ -99,23 +99,22 @@ function RegisterPage() {
                             id="confirmPassword"
                             name="confirmPassword"
                             placeholder="Repeat Password"
-                            className="register-input"
+                            className="auth-input"
                             required
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
                         />
 
-                        <button type="submit" className="register-button" onClick={handleSubmit}>Register</button>
+                        <button type="submit" className="auth-button" onClick={handleSubmit}>Register</button>
                     </form>
 
-                    <footer className="register-footer">
+                    <footer className="auth-footer">
                         <p>
                             Already have an account?{" "}
                             <Link to="../LoginPage">Login here</Link>
                         </p>
                     </footer>
                 </article>
-
             </section>
         </div>
     )

@@ -51,15 +51,19 @@ function SearchPage() {
                     <>
                         {(searchIssue.type === "s" && searchIssue.input.trim() !== "") ||
                         (searchIssue.type === "f" && searchIssue.input.trim().length === 1) ? (
-                            <CocktailBlockName key={searchReset} search={searchIssue.type} input={searchIssue.input}/>
+                            <div className="cocktail-wrapper">
+                                <CocktailBlockName key={searchReset} search={searchIssue.type} input={searchIssue.input}/>
+                            </div>
                         ) : null}
 
                         {searchIssue.type === "i" && searchIssue.input.trim() !== "" ? (
-                            <CocktailBlockIngredient key={searchReset} ingredient={searchIssue.input}/>
+                            <div className="cocktail-wrapper">
+                                <CocktailBlockIngredient key={searchReset} ingredient={searchIssue.input}/>
+                            </div>
                         ) : null}
 
                         {searchIssue.type === "random_cocktail" ? (
-                            <div className="random-container">
+                            <div className="cocktail-wrapper">
                                 <CocktailBlockRandom key={searchReset + "_1"} />
                                 <CocktailBlockRandom key={searchReset + "_2"} />
                             </div>

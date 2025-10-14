@@ -58,13 +58,13 @@ function LoginPage() {
    }
 
     return(
-        <main className="main-container">
-            <section className="login-container">
-                <header className="login-header">
+        <div className="main-container">
+            <section className="auth-container">
+                <header className="auth-header">
                     <h1>Login</h1>
                 </header>
 
-                <article className="login-container-body">
+                <article className="auth-body">
                     <form>
                         <label htmlFor="mail">Username</label>
                         <input
@@ -72,7 +72,7 @@ function LoginPage() {
                             id="mail"
                             name="mail"
                             placeholder="Mail address"
-                            className="login-input"
+                            className="auth-input"
                             value={mail}
                             onChange={(e) => setMail(e.target.value)}
                             required
@@ -83,25 +83,26 @@ function LoginPage() {
                             type="password"
                             id="password"
                             name="password"
-                            placeholder="Wachtwoord"
-                            className="login-input"
+                            placeholder="Password"
+                            className="auth-input"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
                         />
 
-                        <button type="submit" className="login-button" onClick={handleSubmit}>Inloggen</button>
+                        <button type="submit" className="auth-button" onClick={handleSubmit}>Login</button>
                     </form>
 
-                    <footer className="login-footer">
+                    <footer className="auth-footer">
                         <p>
-                            Don't have an account?
+                            Don't have an account?{" "}
                             <Link to="../RegisterPage">Register here</Link>
                         </p>
                     </footer>
                 </article>
             </section>
-        </main>
+        </div>
+
 
     )
 }

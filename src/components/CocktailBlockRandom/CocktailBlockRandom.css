@@ -24,12 +24,14 @@
 }
 
 .cocktail-section-one, .cocktail-section-two {
-    flex: 1;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    padding: 0.75rem;
-    background: #fff;
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+    border: 1px solid #ddd !important;
+    border-radius: 6px !important;
+    padding: 0.75rem !important;
+    background: #fff !important;
 }
+
 
 .cocktail-section-one img {
     height: 9rem;
@@ -72,4 +74,16 @@ h3{
 Link:active,
 Link:hover {
     color: grey;
+}
+
+@media (max-width: 1024px) {
+    .cocktail-container-body {
+        flex-direction: column !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .cocktail-container-body {
+        flex-direction: column !important;
+    }
 }

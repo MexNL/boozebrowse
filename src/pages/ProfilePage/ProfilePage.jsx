@@ -68,10 +68,12 @@ function ProfilePage() {
                         </header>
                         <article>
                             {cocktailIds.length > 0 ? (
-                                <CocktailBlockProfile
-                                    ids={cocktailIds}
-                                    setRefresh={setRefresh}
-                                />
+                                <div className="cocktail-wrapper">
+                                    <CocktailBlockProfile
+                                        ids={cocktailIds}
+                                        setRefresh={setRefresh}
+                                    />
+                                </div>
                             ) : (
                                 <p>Loading saved cocktails...</p>
                             )}
