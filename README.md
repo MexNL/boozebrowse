@@ -1,3 +1,13 @@
+**Inhoudsopgave**
+1. Inleiding
+2. Benodigdheden
+3. Installatie
+4. Inloggen
+5. Overige NPM-commando's
+
+
+**Inleiding**
+
 Boozebrowse is een webapplicatie waarmee gebruikers cocktails kunnen ontdekken, zoeken en opslaan als favoriet. De app
 biedt verschillende manieren om cocktails te vinden: op naam, op ingrediënt, op de eerste letter van de cocktail, of
 door een willekeurige cocktail te bekijken. Voor iedere cocktail wordt uitgebreide informatie weergegeven, zoals de
