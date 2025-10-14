@@ -44,3 +44,5 @@ De belangrijkste commando's voor dit project zijn _npm run dev_ om de ontwikkelo
 om een productieversie te maken, en npm run preview om de productiebuild lokaal te bekijken. Voor codekwaliteit kan _npm
 run lint_ worden gebruikt. Het commando _npm install_ zal alle dependencies zoals gedefinieerd in package.json
 installeren. Voor ontwikkeling voldoet _npm run dev_.
+
+Link naar repository: https://github.com/MexNL/boozebrowse#
